@@ -47,7 +47,7 @@ A simple ML project to classify clothing items from the **Fashion MNIST** datase
 - Achieved **85.26% accuracy** on the test dataset  
 - Evaluated with classification reports and a visualized confusion matrix  
 - **Tech Stack:** Python, NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn  
-🔗 [View Project]([https://github.com/TSaha4/Fashion-Classification](https://github.com/TSaha4/Fashion-Classification))
+🔗 [View Project](https://github.com/TSaha4/Fashion-Classification)
 
 ---
 
@@ -60,7 +60,7 @@ A web-based plant assistant that lets users search for plants by name or image a
 - User-friendly interface with scrollable sections (About, Contact, Search)  
 - Handles both **text and image search** with name matching and scientific name fallback  
 - **Tech Stack:** HTML, CSS, JavaScript (Vanilla), Plant.id API, JSON  
-🔗 [View Project]([https://github.com/TSaha4/Virtual-Plant-Caretaker](https://github.com/TSaha4/PlantPal---virtual-plant-caretaker))
+🔗 [View Project](https://github.com/TSaha4/PlantPal---virtual-plant-caretaker)
 
 ---
 
