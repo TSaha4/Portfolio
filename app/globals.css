@@ -1,0 +1,131 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Light mode - Soft creamy violet-tinted */
+  --background: #F5F3FF;
+  --foreground: #374151;
+  --card: rgba(255, 255, 255, 0.7);
+  --card-foreground: #374151;
+  --popover: rgba(255, 255, 255, 0.9);
+  --popover-foreground: #374151;
+  --primary: #7C3AED;
+  --primary-foreground: #FFFFFF;
+  --secondary: #A78BFA;
+  --secondary-foreground: #FFFFFF;
+  --muted: #EDE9FE;
+  --muted-foreground: #6B7280;
+  --accent: #A78BFA;
+  --accent-foreground: #FFFFFF;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(167, 139, 250, 0.2);
+  --input: rgba(167, 139, 250, 0.1);
+  --ring: #7C3AED;
+  --radius: 0.75rem;
+  
+  /* Glass effect */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+.dark {
+  /* Dark mode - Deep black with gold accents */
+  --background: #0F0F1A;
+  --foreground: #F5F5F5;
+  --card: rgba(20, 20, 35, 0.7);
+  --card-foreground: #F5F5F5;
+  --popover: rgba(20, 20, 35, 0.9);
+  --popover-foreground: #F5F5F5;
+  --primary: #D4AF37;
+  --primary-foreground: #0F0F1A;
+  --secondary: #F5D76E;
+  --secondary-foreground: #0F0F1A;
+  --muted: #1A1A2E;
+  --muted-foreground: #9CA3AF;
+  --accent: #F5D76E;
+  --accent-foreground: #0F0F1A;
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: #F5F5F5;
+  --border: rgba(212, 175, 55, 0.2);
+  --input: rgba(212, 175, 55, 0.1);
+  --ring: #D4AF37;
+  
+  /* Glass effect dark */
+  --glass-bg: rgba(15, 15, 26, 0.6);
+  --glass-border: rgba(212, 175, 55, 0.2);
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Geist', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Typing animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s infinite;
+  color: var(--primary);
+}
