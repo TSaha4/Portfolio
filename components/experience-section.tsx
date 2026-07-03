@@ -151,7 +151,7 @@ export function ExperienceSection() {
                         <ExternalLink className="w-2.5 h-2.5 md:w-3 md:h-3 opacity-60" />
                       </a>
                     )}
-                    {exp.certificate && (
+                    {/* {exp.certificate && (
                       <a
                         href={exp.certificate}
                         target="_blank"
@@ -162,7 +162,7 @@ export function ExperienceSection() {
                         <span>Certificate</span>
                         <ExternalLink className="w-2.5 h-2.5 md:w-3 md:h-3 opacity-60" />
                       </a>
-                    )}
+                    )} */}
                   </div>
 
                   {/* Tech Stack Chips */}

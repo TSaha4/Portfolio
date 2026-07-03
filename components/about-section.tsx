@@ -65,7 +65,7 @@ export function AboutSection() {
           </div>
 
           <motion.a
-            href="https://drive.google.com/file/d/1piZfJcQFF-LolASV__BS2TNlLnDTHkH2/view?usp=drive_link"
+            href="https://drive.google.com/file/d/1wNyTxpLwbgW3iSFPBVDYcv8sQM15i98y/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
