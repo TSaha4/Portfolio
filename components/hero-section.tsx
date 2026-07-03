@@ -126,10 +126,10 @@ export function HeroSection({ onScrollPast }: HeroSectionProps) {
   return (
     <section
       ref={heroRef}
-      className="min-h-screen flex items-center justify-center px-6 py-20 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center px-4 py-12 md:px-6 md:py-20 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto w-full">
-        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -141,16 +141,16 @@ export function HeroSection({ onScrollPast }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-lg md:text-xl text-muted-foreground mb-2"
+              className="text-base md:text-xl text-muted-foreground mb-1 md:mb-2"
             >
-              Hi There,
+              Hello,
             </motion.p>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
+              className="text-3xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4"
             >
               {"I'm "}
               <span className="text-primary">Tanmoy Saha</span>
@@ -160,7 +160,7 @@ export function HeroSection({ onScrollPast }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-8 h-10"
+              className="text-lg md:text-2xl lg:text-3xl text-muted-foreground mb-6 md:mb-8 h-8 md:h-10"
             >
               <span className="typing-cursor">{displayText}</span>
             </motion.div>
@@ -169,16 +169,16 @@ export function HeroSection({ onScrollPast }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex flex-col sm:flex-row items-center gap-6 justify-center md:justify-start"
+              className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 justify-center md:justify-start"
             >
               <button
                 onClick={scrollToAbout}
-                className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-primary/25"
+                className="px-6 py-2.5 md:px-8 md:py-3 bg-primary text-primary-foreground rounded-full font-medium hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-primary/25 text-sm md:text-base"
               >
                 About Me
               </button>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 md:gap-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={social.label}
@@ -190,11 +190,11 @@ export function HeroSection({ onScrollPast }: HeroSectionProps) {
                     whileHover="hover"
                     variants={buttonVariants}
                     transition={{ delay: 0.6 + index * 0.1 }}
-                    className={`p-3 rounded-full transition-[color,background-color,border-color,box-shadow] duration-300 ${social.mobileClass} ${social.hoverColor} ${social.hoverText}`}
+                    className={`p-2.5 md:p-3 rounded-full transition-[color,background-color,border-color,box-shadow] duration-300 ${social.mobileClass} ${social.hoverColor} ${social.hoverText}`}
                     aria-label={social.label}
                   >
                     <motion.div variants={iconVariants} className="flex items-center justify-center">
-                      <social.icon className="w-5 h-5" />
+                      <social.icon className="w-4.5 h-4.5 md:w-5 md:h-5" />
                     </motion.div>
                   </motion.a>
                 ))}
@@ -209,13 +209,14 @@ export function HeroSection({ onScrollPast }: HeroSectionProps) {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px]">
+            <div className="relative w-56 h-56 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px]">
               {/* Decorative rings */}
               <div className="absolute inset-0 rounded-full border-2 border-primary/20 animate-pulse" />
               <div className="absolute inset-3 rounded-full border-2 border-secondary/30" />
-              
+
+
               {/* Profile image */}
-              <div className="absolute inset-6 rounded-full overflow-hidden border-4 border-primary shadow-2xl shadow-primary/20">
+              <div className="absolute inset-4 md:inset-6 rounded-full overflow-hidden border-4 border-primary shadow-2xl shadow-primary/20">
                 <Image
                   src="/profile.jpg"
                   alt="Tanmoy Saha"
@@ -229,12 +230,12 @@ export function HeroSection({ onScrollPast }: HeroSectionProps) {
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-primary/20 backdrop-blur-sm"
+                className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-8 h-8 md:w-12 md:h-12 rounded-full bg-primary/20 backdrop-blur-sm"
               />
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-4 -left-4 w-8 h-8 rounded-full bg-secondary/30 backdrop-blur-sm"
+                className="absolute -bottom-2 -left-2 md:-bottom-4 md:-left-4 w-6 h-6 md:w-8 md:h-8 rounded-full bg-secondary/30 backdrop-blur-sm"
               />
             </div>
           </motion.div>

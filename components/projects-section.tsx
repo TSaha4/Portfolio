@@ -127,17 +127,17 @@ export function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="py-20" ref={ref}>
+    <section id="projects" className="py-12 md:py-20" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4">
             My <span className="text-primary">Projects</span>
           </h2>
-          <div className="w-20 h-1 bg-primary mx-auto mb-12 rounded-full" />
+          <div className="w-20 h-1 bg-primary mx-auto mb-8 md:mb-12 rounded-full" />
         </motion.div>
       </div>
 
@@ -177,20 +177,20 @@ export function ProjectsSection() {
             WebkitOverflowScrolling: "touch",
           }}
         >
-          {projects.map((project, index) => (
+           {projects.map((project, index) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex-shrink-0 w-[340px] md:w-[420px] snap-center"
+              className="flex-shrink-0 w-[290px] sm:w-[340px] md:w-[420px] snap-center"
             >
-              <div className="group h-[430px] md:h-[470px] flex flex-col bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative">
+              <div className="group h-[390px] sm:h-[430px] md:h-[470px] flex flex-col bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative">
                 {/* Mobile Click Overlay */}
                 <a href={project.github} target="_blank" rel="noopener noreferrer" className="absolute inset-x-0 top-0 h-[65%] z-10 md:hidden" aria-label={`View ${project.title} on GitHub`} />
                 
                 {/* Project Image */}
-                <div className="relative h-[65%] w-full overflow-hidden shrink-0 pointer-events-none md:pointer-events-auto">
+                <div className="relative h-[55%] sm:h-[65%] w-full overflow-hidden shrink-0 pointer-events-none md:pointer-events-auto">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -217,18 +217,18 @@ export function ProjectsSection() {
                 </div>
 
                 {/* Project Info */}
-                <div className="p-6 flex flex-col flex-1 overflow-y-auto scrollbar-hide">
-                  <h3 className="text-xl font-semibold mb-2 text-primary">{project.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">
+                <div className="p-4 md:p-6 flex flex-col flex-1 overflow-y-auto scrollbar-hide">
+                  <h3 className="text-lg md:text-xl font-semibold mb-1 md:mb-2 text-primary">{project.title}</h3>
+                  <p className="text-muted-foreground text-xs md:text-sm mb-3 md:mb-4">
                     {project.description}
                   </p>
                   
                   {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mt-auto">
+                  <div className="flex flex-wrap gap-1.5 md:gap-2 mt-auto">
                     {project.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary"
+                        className="px-2 py-0.5 md:px-3 md:py-1 text-[11px] md:text-xs font-medium rounded-full bg-primary/10 text-primary"
                       >
                         {tech}
                       </span>

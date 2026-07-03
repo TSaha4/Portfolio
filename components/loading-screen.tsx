@@ -27,15 +27,35 @@ const languages = [
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [progress, setProgress] = useState(0)
   const [currentLang, setCurrentLang] = useState(0)
+  const [isFirstVisit, setIsFirstVisit] = useState<boolean | null>(null)
 
   useEffect(() => {
-    // Progress bar and steps simulation
-    const duration = 3000 
+    if (typeof window !== "undefined") {
+      const hasVisited = localStorage.getItem("hasVisitedPortfolio")
+      if (hasVisited) {
+        setIsFirstVisit(false)
+      } else {
+        setIsFirstVisit(true)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isFirstVisit === null) return
+
+    if (!isFirstVisit) {
+      const timer = setTimeout(() => {
+        onComplete()
+      }, 800)
+      return () => clearTimeout(timer)
+    }
+
+    // First visit loading progress animation (duration 1200ms)
+    const duration = 1200
     const interval = 30
     const steps = duration / interval
     let currentStepCount = 0
 
-    // Cycle through languages evenly across 4 phases
     const langInterval = setInterval(() => {
       setCurrentLang((prev) => (prev + 1) % languages.length)
     }, duration / 4)
@@ -48,7 +68,12 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       if (currentStepCount >= steps) {
         clearInterval(progressInterval)
         clearInterval(langInterval)
-        setTimeout(onComplete, 400) // Brief pause at 100% before firing complete
+        try {
+          localStorage.setItem("hasVisitedPortfolio", "true")
+        } catch (e) {
+          console.error(e)
+        }
+        setTimeout(onComplete, 200)
       }
     }, interval)
 
@@ -56,13 +81,39 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       clearInterval(progressInterval)
       clearInterval(langInterval)
     }
-  }, [onComplete])
+  }, [isFirstVisit, onComplete])
+
+  if (isFirstVisit === null) {
+    return <div className="fixed inset-0 z-[9999] bg-background" />
+  }
+
+  if (!isFirstVisit) {
+    return (
+      <motion.div
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0, y: "-100%" }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+        className="fixed inset-0 z-[9999] bg-background flex flex-col items-center justify-center p-6 border-b-2 border-primary"
+      >
+        <div className="max-w-md w-full flex flex-col items-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground text-center">
+            Welcome
+          </h1>
+          <div className="mt-6 text-lg md:text-xl font-bold uppercase tracking-[2px] text-center">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
+              TANMOY SAHA's Portfolio
+            </span>
+          </div>
+        </div>
+      </motion.div>
+    )
+  }
 
   return (
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, y: "-100%" }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }} /* Smooth slide up */
+      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[9999] bg-background flex flex-col items-center justify-center p-6 border-b-2 border-primary"
     >
       <div className="max-w-md w-full flex flex-col items-center">
@@ -83,7 +134,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           </AnimatePresence>
         </div>
 
-        {/* Loading Steps text that gives the "building" impression */}
+        {/* Loading Steps text */}
         <motion.div 
           className="h-8 mb-4 text-primary font-mono text-sm md:text-base text-center"
         >
@@ -105,7 +156,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           <span>{Math.floor(progress)}%</span>
         </div>
 
-        {/* Identity Section (slowly building) */}
+        {/* Identity Section */}
         <div className="mt-16 flex flex-col items-center gap-2">
           <motion.div 
             className="text-2xl md:text-3xl font-bold uppercase"
@@ -117,7 +168,6 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
-              {/* {languages[currentLang].name} */}
               TANMOY SAHA
             </span>
           </motion.div>

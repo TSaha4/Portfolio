@@ -4,34 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Light mode - Soft creamy violet-tinted */
-  --background: #F5F3FF;
-  --foreground: #374151;
-  --card: rgba(255, 255, 255, 0.7);
-  --card-foreground: #374151;
-  --popover: rgba(255, 255, 255, 0.9);
-  --popover-foreground: #374151;
-  --primary: #7C3AED;
-  --primary-foreground: #FFFFFF;
-  --secondary: #A78BFA;
-  --secondary-foreground: #FFFFFF;
-  --muted: #EDE9FE;
-  --muted-foreground: #6B7280;
-  --accent: #A78BFA;
-  --accent-foreground: #FFFFFF;
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: #FFFFFF;
-  --border: rgba(167, 139, 250, 0.2);
-  --input: rgba(167, 139, 250, 0.1);
-  --ring: #7C3AED;
-  --radius: 0.75rem;
-  
-  /* Glass effect */
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.3);
-}
-
-.dark {
   /* Dark mode - Deep black with gold accents */
   --background: #0F0F1A;
   --foreground: #F5F5F5;
@@ -52,6 +24,7 @@
   --border: rgba(212, 175, 55, 0.2);
   --input: rgba(212, 175, 55, 0.1);
   --ring: #D4AF37;
+  --radius: 0.75rem;
   
   /* Glass effect dark */
   --glass-bg: rgba(15, 15, 26, 0.6);
@@ -129,3 +102,4 @@
   animation: blink 1s infinite;
   color: var(--primary);
 }
+

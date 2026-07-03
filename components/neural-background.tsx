@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useCallback } from "react"
-import { useTheme } from "next-themes"
 
 interface Particle {
   x: number
@@ -15,7 +14,6 @@ export function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const particlesRef = useRef<Particle[]>([])
   const animationRef = useRef<number>(0)
-  const { resolvedTheme } = useTheme()
 
   const createParticles = useCallback((width: number, height: number, isMobile: boolean) => {
     const particleCount = isMobile ? 30 : 60
@@ -56,7 +54,7 @@ export function NeuralBackground() {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      const isDark = resolvedTheme === "dark"
+      const isDark = true
       const particles = particlesRef.current
       const connectionDistance = 150
       const isMobile = window.innerWidth < 768
@@ -120,7 +118,7 @@ export function NeuralBackground() {
       window.removeEventListener("resize", resizeCanvas)
       cancelAnimationFrame(animationRef.current)
     }
-  }, [resolvedTheme, createParticles])
+  }, [createParticles])
 
   return (
     <canvas

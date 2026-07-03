@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useTheme } from "next-themes"
-import { Menu, X, Sun, Moon } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import Image from "next/image"
 
 const navLinks = [
   { name: "About", href: "#about" },
   { name: "Projects", href: "#projects" },
+  { name: "Work Experience", href: "#experience" },
   { name: "Education", href: "#education" },
   { name: "Skills", href: "#skills" },
   { name: "Contact", href: "#contact" },
@@ -21,36 +21,11 @@ interface NavbarProps {
 
 export function Navbar({ showNav, profileInNav }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [activeSection, setActiveSection] = useState("")
-  const [showThemeAlert, setShowThemeAlert] = useState(false)
-  const [alertTimeoutId, setAlertTimeoutId] = useState<NodeJS.Timeout | null>(null)
-
-  const handleThemeToggle = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark")
-    if (!showNav) {
-      setShowThemeAlert(true)
-      if (alertTimeoutId) clearTimeout(alertTimeoutId)
-      const timeout = setTimeout(() => setShowThemeAlert(false), 1250)
-      setAlertTimeoutId(timeout)
-    }
-  }
 
   useEffect(() => {
     setMounted(true)
-    
-    // Initial mount theme alert
-    const mountTimer = setTimeout(() => {
-      setShowThemeAlert(true)
-      const timeout = setTimeout(() => setShowThemeAlert(false), 1250)
-      setAlertTimeoutId(timeout)
-    }, 1500)
-
-    return () => {
-      clearTimeout(mountTimer)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -111,37 +86,6 @@ export function Navbar({ showNav, profileInNav }: NavbarProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <div className="relative">
-                <motion.button
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                  onClick={handleThemeToggle}
-                  className="p-3 rounded-full bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] shadow-lg hover:bg-primary/20 transition-colors block"
-                  aria-label="Toggle theme"
-                >
-                  {mounted && (resolvedTheme === "dark" ? (
-                    <Sun className="w-5 h-5 text-primary" />
-                  ) : (
-                    <Moon className="w-5 h-5 text-primary" />
-                  ))}
-                </motion.button>
-                <AnimatePresence>
-                  {showThemeAlert && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                      className="absolute right-0 top-full mt-3 whitespace-nowrap bg-primary text-primary-foreground text-xs px-3 py-2 rounded-md shadow-lg font-medium pointer-events-none"
-                    >
-                      <div className="absolute -top-1 right-4 w-2 h-2 bg-primary rotate-45" />
-                      {resolvedTheme === "dark" ? "Click to brighten" : "Click to darken"}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              
               <motion.button
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
@@ -221,23 +165,7 @@ export function Navbar({ showNav, profileInNav }: NavbarProps) {
                   )})}
                 </div>
 
-                {/* Right: Theme Toggle */}
-                {mounted && (
-                  <motion.button
-                    onClick={handleThemeToggle}
-                    className="p-2 rounded-full bg-muted hover:bg-primary/20 transition-colors flex-shrink-0"
-                    aria-label="Toggle theme"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2, delay: 0.2 }}
-                  >
-                    {resolvedTheme === "dark" ? (
-                      <Sun className="w-5 h-5 text-primary" />
-                    ) : (
-                      <Moon className="w-5 h-5 text-primary" />
-                    )}
-                  </motion.button>
-                )}
+
               </div>
             </motion.nav>
           )}
@@ -279,19 +207,6 @@ export function Navbar({ showNav, profileInNav }: NavbarProps) {
             </AnimatePresence>
 
             <div className="flex items-center gap-1 pointer-events-auto transition-all duration-300 bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] shadow-lg rounded-full px-1.5 py-1.5">
-              {mounted && (
-                <button
-                  onClick={handleThemeToggle}
-                  className="p-2 rounded-full transition-colors flex items-center justify-center hover:bg-primary/20 focus:outline-none"
-                  aria-label="Toggle theme"
-                >
-                  {resolvedTheme === "dark" ? (
-                    <Sun className="w-5 h-5 text-primary" />
-                  ) : (
-                    <Moon className="w-5 h-5 text-primary" />
-                  )}
-                </button>
-              )}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 rounded-full transition-colors flex items-center justify-center hover:bg-primary/20 focus:outline-none"
