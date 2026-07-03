@@ -31,7 +31,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const hasVisited = localStorage.getItem("hasVisitedPortfolio")
+      const hasVisited = sessionStorage.getItem("hasVisitedPortfolio")
       if (hasVisited) {
         setIsFirstVisit(false)
       } else {
@@ -69,7 +69,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         clearInterval(progressInterval)
         clearInterval(langInterval)
         try {
-          localStorage.setItem("hasVisitedPortfolio", "true")
+          sessionStorage.setItem("hasVisitedPortfolio", "true")
         } catch (e) {
           console.error(e)
         }
