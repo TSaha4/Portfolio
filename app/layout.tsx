@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     description: 'Portfolio of Tanmoy Saha - CSE Student with an interest in AI and Machine Learning and is also proficient in Web Development, and GenAI',
     type: 'website',
   },
+  icons: {
+    icon: '/project_imgs/monogram.png',
+    apple: '/project_imgs/monogram.png',
+  },
 }
 
 export const viewport: Viewport = {
