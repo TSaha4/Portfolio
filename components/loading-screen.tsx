@@ -50,8 +50,8 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       return () => clearTimeout(timer)
     }
 
-    // First visit loading progress animation (duration 1200ms)
-    const duration = 1200
+    // First visit loading progress animation (duration 2400ms)
+    const duration = 2400
     const interval = 30
     const steps = duration / interval
     let currentStepCount = 0
