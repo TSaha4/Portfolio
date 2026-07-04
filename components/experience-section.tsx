@@ -21,7 +21,7 @@ const experiences = [
     bannerImg: "/project_imgs/ntpc.png", 
     logoImg: "/NTPC-logo.png",
     github: "https://github.com/TSaha4/AI_Based_Chatbot.git",
-    certificate: "https://drive.google.com/file/d/1B9xG47UtZXMmRziXadvySNTsbJ9OjihQ/view?usp=sharing"
+    certificate: "https://drive.google.com/file/d/10jLsp7Rw76crBcsecQvkyheBMKCCNkp9/view?usp=drive_link"
   }
 ]
 
@@ -151,7 +151,7 @@ export function ExperienceSection() {
                         <ExternalLink className="w-2.5 h-2.5 md:w-3 md:h-3 opacity-60" />
                       </a>
                     )}
-                    {/* {exp.certificate && (
+                    {exp.certificate && (
                       <a
                         href={exp.certificate}
                         target="_blank"
@@ -162,7 +162,7 @@ export function ExperienceSection() {
                         <span>Certificate</span>
                         <ExternalLink className="w-2.5 h-2.5 md:w-3 md:h-3 opacity-60" />
                       </a>
-                    )} */}
+                    )}
                   </div>
 
                   {/* Tech Stack Chips */}
