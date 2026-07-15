@@ -3,18 +3,21 @@
 import { useState, useEffect } from "react"
 import { AnimatePresence } from "framer-motion"
 import { LoadingScreen } from "@/components/loading-screen"
-import { NeuralBackground } from "@/components/neural-background"
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
-import { AboutSection } from "@/components/about-section"
-import { ProjectsSection } from "@/components/projects-section"
-import { ExperienceSection } from "@/components/experience-section"
-import { EducationSection } from "@/components/education-section"
-import { SkillsSection } from "@/components/skills-section"
-import { ContactSection } from "@/components/contact-section"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { BackToTop } from "@/components/back-to-top"
 import { Footer } from "@/components/footer"
+
+import dynamic from "next/dynamic"
+
+const NeuralBackground = dynamic(() => import("@/components/neural-background").then(mod => mod.NeuralBackground), { ssr: false })
+const AboutSection = dynamic(() => import("@/components/about-section").then(mod => mod.AboutSection))
+const ProjectsSection = dynamic(() => import("@/components/projects-section").then(mod => mod.ProjectsSection))
+const ExperienceSection = dynamic(() => import("@/components/experience-section").then(mod => mod.ExperienceSection))
+const EducationSection = dynamic(() => import("@/components/education-section").then(mod => mod.EducationSection))
+const SkillsSection = dynamic(() => import("@/components/skills-section").then(mod => mod.SkillsSection))
+const ContactSection = dynamic(() => import("@/components/contact-section").then(mod => mod.ContactSection))
 
 export default function Portfolio() {
   const [showNav, setShowNav] = useState(false)

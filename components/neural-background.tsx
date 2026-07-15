@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useCallback } from "react"
+import { useEffect, useRef, useState, useCallback } from "react"
 
 interface Particle {
   x: number
@@ -14,6 +14,8 @@ export function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const particlesRef = useRef<Particle[]>([])
   const animationRef = useRef<number>(0)
+  const isMobileRef = useRef<boolean>(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
   const createParticles = useCallback((width: number, height: number, isMobile: boolean) => {
     const particleCount = isMobile ? 30 : 60
@@ -32,6 +34,19 @@ export function NeuralBackground() {
     return particles
   }, [])
 
+  // Detect prefers-reduced-motion query
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+    
+    const listener = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches)
+    }
+    mediaQuery.addEventListener('change', listener)
+    return () => mediaQuery.removeEventListener('change', listener)
+  }, [])
+
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -43,11 +58,19 @@ export function NeuralBackground() {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
       const isMobile = window.innerWidth < 768
+      isMobileRef.current = isMobile
       particlesRef.current = createParticles(canvas.width, canvas.height, isMobile)
     }
 
     resizeCanvas()
-    window.addEventListener("resize", resizeCanvas)
+    
+    // Throttle resize events
+    let resizeFrame: number
+    const handleResize = () => {
+      cancelAnimationFrame(resizeFrame)
+      resizeFrame = requestAnimationFrame(resizeCanvas)
+    }
+    window.addEventListener("resize", handleResize)
 
     const animate = () => {
       if (!ctx || !canvas) return
@@ -57,34 +80,39 @@ export function NeuralBackground() {
       const isDark = true
       const particles = particlesRef.current
       const connectionDistance = 150
-      const isMobile = window.innerWidth < 768
+      const isMobile = isMobileRef.current
 
       // Update and draw particles
       particles.forEach((particle, i) => {
-        // Update position
-        particle.x += particle.vx
-        particle.y += particle.vy
+        // Update position only if motion is allowed
+        if (!prefersReducedMotion) {
+          particle.x += particle.vx
+          particle.y += particle.vy
 
-        // Bounce off edges
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
+          // Bounce off edges
+          if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
+          if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
+        }
 
         // Draw particle
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
-        
         if (isDark) {
-          // Dark mode: glowing white dots
-          ctx.fillStyle = "rgba(255, 255, 255, 0.6)"
-          ctx.shadowBlur = 10
-          ctx.shadowColor = "rgba(255, 255, 255, 0.5)"
+          // Double-arc outer/inner drawing to simulate glow without using costly CPU shadowBlur
+          ctx.beginPath()
+          ctx.arc(particle.x, particle.y, particle.radius * 2.5, 0, Math.PI * 2)
+          ctx.fillStyle = "rgba(255, 255, 255, 0.12)"
+          ctx.fill()
+
+          ctx.beginPath()
+          ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
+          ctx.fillStyle = "rgba(255, 255, 255, 0.75)"
+          ctx.fill()
         } else {
-          // Light mode: grey dots
+          // Light mode (fallback)
+          ctx.beginPath()
+          ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
           ctx.fillStyle = "rgba(124, 58, 237, 0.4)"
-          ctx.shadowBlur = 0
+          ctx.fill()
         }
-        ctx.fill()
-        ctx.shadowBlur = 0
 
         // Draw connections (skip on mobile for performance)
         if (!isMobile) {
@@ -109,16 +137,19 @@ export function NeuralBackground() {
         }
       })
 
-      animationRef.current = requestAnimationFrame(animate)
+      if (!prefersReducedMotion) {
+        animationRef.current = requestAnimationFrame(animate)
+      }
     }
 
     animate()
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas)
+      window.removeEventListener("resize", handleResize)
+      cancelAnimationFrame(resizeFrame)
       cancelAnimationFrame(animationRef.current)
     }
-  }, [createParticles])
+  }, [createParticles, prefersReducedMotion])
 
   return (
     <canvas

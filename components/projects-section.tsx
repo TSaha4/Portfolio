@@ -9,35 +9,35 @@ const projects = [
   {
     title: "Drone Flood-Relief Mission Planner",
     description: "Converts flood maps into executable drone missions by detecting safe drop zones and generating optimized flight paths using geometric analysis and TSP heuristics. Outputs MAVLink waypoint files ready for real-world UAV deployment.",
-    image: "/project_imgs/drone.png",
+    image: "/project_imgs/drone.webp",
     tech: ["Python", "OpenCV", "NumPy", "Matplotlib"],
     github: "https://github.com/TSaha4/AI-Powered-Drone-Path-Planning-System-for-Flood-Relief",
   },
   {
     title: "Latch – Auto WiFi Login App",
     description: "An Android app that automatically detects hostel WiFi networks and logs users in seamlessly, eliminating repetitive manual authentication and improving everyday usability.",
-    image: "/project_imgs/latch.png",
+    image: "/project_imgs/latch.webp",
     tech: ["Kotlin", "Jetpack Compose", "Firebase"],
     github: "https://github.com/vinnovateit/auto-net-connector",
   },
   {
     title: "UPRYT – RL-Based Posture Correction System",
     description: "A real-time posture analysis system that uses reinforcement learning to deliver adaptive feedback. Learns user behavior to optimize correction strategies, reducing alert fatigue while improving posture over time.",
-    image: "/project_imgs/upryt.png",
+    image: "/project_imgs/upryt.webp",
     tech: ["Python", "PyTorch", "OpenCV", "MediaPipe"],
     github: "https://github.com/TSaha4/Real_Time_Posture_Analysis_RL_Project",
   },
   {
     title: "MediBot – AI Medical Chatbot",
     description: "An AI chatbot that predicts diseases from symptoms using a hybrid NLP pipeline combining semantic embeddings, fuzzy matching, and vector search for accurate, real-time responses.",
-    image: "/project_imgs/medibot.png",
+    image: "/project_imgs/medibot.webp",
     tech: ["Python", "Flask", "IBM Watson", "FAISS", "SentenceTransformers"],
     github: "https://github.com/TSaha4/MediBot---Virtual-medical-Chatbot",
   },
   {
     title: "College Feedback Classifier",
     description: "A dual-model NLP system using DeBERTa and RoBERTa to classify feedback by category and sentiment, achieving 90%+ accuracy and enabling deeper insights into user opinions.",
-    image: "/project_imgs/college.png",
+    image: "/project_imgs/college.webp",
     tech: ["PyTorch", "Hugging Face Transformers", "scikit-learn"],
     github: "https://github.com/TSaha4/College_Feedback_Classifier",
   }
@@ -196,6 +196,7 @@ export function ProjectsSection() {
                     alt={project.title}
                     fill
                     draggable={false}
+                    sizes="(max-w-640px) 290px, (max-w-768px) 340px, 420px"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

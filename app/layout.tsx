@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     type: 'website',
   },
   icons: {
-    icon: '/project_imgs/monogram.png',
-    apple: '/project_imgs/monogram.png',
+    icon: '/project_imgs/monogram.webp',
+    apple: '/project_imgs/monogram.webp',
   },
 }
 

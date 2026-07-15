@@ -218,9 +218,10 @@ export function HeroSection({ onScrollPast }: HeroSectionProps) {
               {/* Profile image */}
               <div className="absolute inset-4 md:inset-6 rounded-full overflow-hidden border-4 border-primary shadow-2xl shadow-primary/20">
                 <Image
-                  src="/profile.jpg"
+                  src="/profile.webp"
                   alt="Tanmoy Saha"
                   fill
+                  sizes="(max-w-768px) 224px, (max-w-1024px) 384px, 420px"
                   className="object-cover"
                   priority
                 />

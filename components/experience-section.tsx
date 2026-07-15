@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import { Building, Calendar, MapPin, Briefcase, Github, ExternalLink } from "lucide-react"
+import Image from "next/image"
 
 const experiences = [
   {
@@ -18,8 +19,8 @@ const experiences = [
     ],
     tech: ["Next.js", "TypeScript", "MongoDB Atlas", "Sentence Transformers", "Gemini", "FastAPI", "RAG"],
     // Links and images customizable by user
-    bannerImg: "/project_imgs/ntpc.png", 
-    logoImg: "/NTPC-logo.png",
+    bannerImg: "/project_imgs/ntpc.webp", 
+    logoImg: "/NTPC-logo.webp",
     github: "https://github.com/TSaha4/AI_Based_Chatbot.git",
     certificate: "https://drive.google.com/file/d/10jLsp7Rw76crBcsecQvkyheBMKCCNkp9/view?usp=drive_link"
   }
@@ -63,9 +64,11 @@ export function ExperienceSection() {
                 {/* Banner / Header Image Area */}
                 <div className="relative h-44 md:h-64 w-full overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-[var(--glass-border)]">
                   {hasBanner ? (
-                    <img
+                    <Image
                       src={exp.bannerImg}
                       alt={`${exp.company} Banner`}
+                      fill
+                      sizes="(max-w-768px) 100vw, 670px"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       onError={() => setBannerError(prev => ({ ...prev, [index]: true }))}
                     />
@@ -85,9 +88,11 @@ export function ExperienceSection() {
                   <div className="absolute -top-8 md:-top-10 left-4 md:left-6 z-20">
                     <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-background border-2 border-primary overflow-hidden shadow-lg flex items-center justify-center">
                       {hasLogo ? (
-                        <img
+                        <Image
                           src={exp.logoImg}
                           alt={`${exp.company} Logo`}
+                          width={80}
+                          height={80}
                           className="w-full h-full object-cover"
                           onError={() => setLogoError(prev => ({ ...prev, [index]: true }))}
                         />

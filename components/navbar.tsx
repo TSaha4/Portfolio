@@ -134,7 +134,7 @@ export function Navbar({ showNav, profileInNav }: NavbarProps) {
                   transition={{ duration: 0.3, delay: 0.15 }}
                 >
                   <Image
-                    src="/profile.jpg"
+                    src="/profile.webp"
                     alt="Profile"
                     width={40}
                     height={40}
@@ -193,7 +193,7 @@ export function Navbar({ showNav, profileInNav }: NavbarProps) {
                       className="flex items-center gap-3"
                     >
                       <Image
-                        src="/profile.jpg"
+                        src="/profile.webp"
                         alt="Profile"
                         width={32}
                         height={32}

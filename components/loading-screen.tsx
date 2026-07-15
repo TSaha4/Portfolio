@@ -31,6 +31,12 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+      if (mediaQuery.matches) {
+        onComplete()
+        return
+      }
+
       const hasVisited = sessionStorage.getItem("hasVisitedPortfolio")
       if (hasVisited) {
         setIsFirstVisit(false)
@@ -38,7 +44,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         setIsFirstVisit(true)
       }
     }
-  }, [])
+  }, [onComplete])
 
   useEffect(() => {
     if (isFirstVisit === null) return
@@ -46,13 +52,13 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     if (!isFirstVisit) {
       const timer = setTimeout(() => {
         onComplete()
-      }, 800)
+      }, 200)
       return () => clearTimeout(timer)
     }
 
-    // First visit loading progress animation (duration 2400ms)
-    const duration = 2400
-    const interval = 30
+    // First visit loading progress animation (duration 1000ms instead of 2400ms)
+    const duration = 1000
+    const interval = 25
     const steps = duration / interval
     let currentStepCount = 0
 
@@ -73,7 +79,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         } catch (e) {
           console.error(e)
         }
-        setTimeout(onComplete, 200)
+        setTimeout(onComplete, 100)
       }
     }, interval)
 
