@@ -57,7 +57,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     }
 
     // First visit loading progress animation (duration 1000ms instead of 2400ms)
-    const duration = 1000
+    const duration = 2000
     const interval = 25
     const steps = duration / interval
     let currentStepCount = 0
