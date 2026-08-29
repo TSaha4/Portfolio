@@ -65,7 +65,7 @@ export function AboutSection() {
           </div>
 
           <motion.a
-            href="https://drive.google.com/file/d/1wNyTxpLwbgW3iSFPBVDYcv8sQM15i98y/view?usp=drive_link"
+            href="https://drive.google.com/file/d/1drlZQt5qMjNRGgdOArVCp7oWWDukElv2/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
@@ -73,7 +73,7 @@ export function AboutSection() {
             className="inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 bg-primary text-primary-foreground rounded-full font-medium hover:opacity-90 transition-opacity shadow-lg shadow-primary/25 text-sm md:text-base"
           >
             <FileText className="w-4.5 h-4.5 md:w-5 md:h-5" />
-            Where the magic is documented.
+            View the magic, documented.
           </motion.a>
         </motion.div>
       </div>

@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { GraduationCap, Calendar, Award, ExternalLink } from "lucide-react"
+import Image from "next/image"
 
 const education = [
   {
@@ -27,18 +28,36 @@ const education = [
 
 const certifications = [
   {
+    title: "Amazon ML Summer School",
+    issuer: "Amazon",
+    period: "Completed",
+    linkText: "View Certificate",
+    link: "https://drive.google.com/file/d/18AYIfUNirr7Aovegi4DccvNVkQQe4hgC/view?usp=drive_link",
+    logoImg: "/project_imgs/amazon.webp"
+  },
+  {
+    title: "AI Upskilling Certificate",
+    issuer: "Qualcomm",
+    period: "Completed",
+    linkText: "View Certificate",
+    link: "https://drive.google.com/file/d/1jRMMzy_lt86Og3X7aYlTq2ounNg0owzv/view?usp=drive_link",
+    logoImg: "/project_imgs/qualcomm.webp"
+  },
+  {
     title: "IBM Generative AI Certificate",
-    issuer: "VIT",
+    issuer: "VIT\nIBM",
     period: "May 2025",
     linkText: "View Certificate",
-    link: "https://drive.google.com/file/d/1B9xG47UtZXMmRziXadvySNTsbJ9OjihQ/view?usp=sharing"
+    link: "https://drive.google.com/file/d/1B9xG47UtZXMmRziXadvySNTsbJ9OjihQ/view?usp=sharing",
+    logoImg: "/project_imgs/ibm.webp"
   },
   {
     title: "Machine Learning Specialization",
-    issuer: "Stanford University, Coursera",
+    issuer: "Stanford University,\nCoursera",
     period: "Completed",
     linkText: "View Certificate",
-    link: "https://drive.google.com/file/d/1ERTUzOq7BtbTY7MEtl3fvJ7Zh_yFWPMg/view?usp=sharing"
+    link: "https://drive.google.com/file/d/1ERTUzOq7BtbTY7MEtl3fvJ7Zh_yFWPMg/view?usp=sharing",
+    logoImg: "/project_imgs/coursera.webp"
   },
   {
     title: "Forage Virtual Experience Programs",
@@ -50,7 +69,8 @@ const certifications = [
     ],
     period: "Completed",
     linkText: "View All",
-    link: "https://www.linkedin.com/feed/update/urn:li:activity:7412005178058637313/"
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7412005178058637313/",
+    logoImg: "/project_imgs/forage.webp"
   },
 ]
 
@@ -247,15 +267,15 @@ export function EducationSection() {
 
                   {/* Top row: icon + title + period badge */}
                   <div className="relative z-10 flex items-start gap-3">
-                    <Award className="w-6 h-6 text-primary/60 group-hover:text-primary shrink-0 mt-0.5 transition-colors duration-300" />
+                    <Award className="w-5 h-5 text-primary/60 group-hover:text-primary shrink-0 mt-0.5 transition-colors duration-300" />
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-bold text-foreground leading-snug">{item.title}</h3>
                     </div>
                     <span className="text-[10px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0">{item.period}</span>
                   </div>
 
-                  {/* Issuer — wraps freely, no truncation */}
-                  <div className="relative z-10 pl-9">
+                  {/* Issuer — wraps freely */}
+                  <div className="relative z-10 pl-8">
                     {Array.isArray(item.issuer) ? (
                       <ul className="text-primary/80 text-xs font-medium space-y-1 list-disc list-outside pl-3">
                         {item.issuer.map((iss, idx) => (
@@ -263,12 +283,12 @@ export function EducationSection() {
                         ))}
                       </ul>
                     ) : (
-                      <p className="text-primary/80 text-xs font-medium">{item.issuer}</p>
+                      <p className="text-primary/80 text-xs font-medium whitespace-pre-line">{item.issuer}</p>
                     )}
                   </div>
 
-                  {/* Link button */}
-                  <div className="relative z-10 pl-9 pt-1">
+                  {/* Bottom row: Link button + Bottom Right Squircle Logo */}
+                  <div className="relative z-10 flex items-center justify-between pt-2">
                     <a
                       href={item.link}
                       target="_blank"
@@ -279,6 +299,18 @@ export function EducationSection() {
                       {item.linkText}
                       <ExternalLink className="w-3 h-3" />
                     </a>
+
+                    {item.logoImg && (
+                      <div className={`w-16 h-10 rounded-xl ${item.logoBg || 'bg-white'} border-2 border-primary overflow-hidden shadow-md shrink-0 flex items-center justify-center p-1.5 transition-transform duration-300 group-hover:scale-105`}>
+                        <Image
+                          src={item.logoImg}
+                          alt={`${item.title} Logo`}
+                          width={64}
+                          height={40}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -309,6 +341,7 @@ export function EducationSection() {
                   <div className="absolute -right-10 -top-10 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-500" />
                   
                   <div className="relative z-10 flex flex-col h-full items-start text-left">
+                    {/* Top Row: Period badge + Award Icon */}
                     <div className="flex justify-between items-start mb-6 w-full">
                       <div className="flex items-center gap-2 text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
                         <Calendar className="w-3.5 h-3.5" />
@@ -328,10 +361,11 @@ export function EducationSection() {
                         ))}
                       </ul>
                     ) : (
-                      <p className="text-primary/80 font-medium mb-6 text-sm">{item.issuer}</p>
+                      <p className="text-primary/80 font-medium mb-6 text-sm whitespace-pre-line">{item.issuer}</p>
                     )}
 
-                    <div className="mt-auto pt-4 flex w-full justify-start">
+                    {/* Bottom Row: Link Button + Bottom Right Squircle Logo */}
+                    <div className="mt-auto pt-4 flex w-full items-center justify-between">
                       <a
                         href={item.link}
                         target="_blank"
@@ -341,6 +375,18 @@ export function EducationSection() {
                         {item.linkText}
                         <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
                       </a>
+
+                      {item.logoImg && (
+                        <div className={`w-20 h-12 md:w-24 md:h-14 rounded-2xl ${item.logoBg || 'bg-white'} border-2 border-primary overflow-hidden shadow-lg shrink-0 flex items-center justify-center p-2 transition-transform duration-300 group-hover:scale-105`}>
+                          <Image
+                            src={item.logoImg}
+                            alt={`${item.title} Logo`}
+                            width={96}
+                            height={56}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </motion.div>

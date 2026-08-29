@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Playfair_Display, Sixtyfour, Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -11,6 +11,18 @@ const inter = Inter({
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
   variable: "--font-playfair",
+})
+
+const sixtyfour = Sixtyfour({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-sixtyfour",
+})
+
+const spaceGrotesk = Space_Grotesk({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
 })
 
 export const metadata: Metadata = {
@@ -45,7 +57,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&family=Space+Grotesk:wght@400&display=swap" rel="stylesheet" />
+      </head>
+      <body className={`${inter.variable} ${playfair.variable} ${sixtyfour.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>

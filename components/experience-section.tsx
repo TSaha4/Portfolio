@@ -23,6 +23,22 @@ const experiences = [
     logoImg: "/NTPC-logo.webp",
     github: "https://github.com/TSaha4/AI_Based_Chatbot.git",
     certificate: "https://drive.google.com/file/d/10jLsp7Rw76crBcsecQvkyheBMKCCNkp9/view?usp=drive_link"
+  },
+  {
+    role: "Data Analytics Intern",
+    company: "Pegasus Mortgage",
+    location: "Remote",
+    period: "May – June 2026",
+    summary: "Developed a Python-based broker analytics pipeline for data cleaning, feature engineering, and pattern identification in broker activity",
+    points: [
+      "Developed a Python-based broker analytics pipeline using Pandas and scikit-learn for data cleaning, feature engineering, and identifying patterns in broker activity.",
+      "Performed exploratory data analysis and statistical analysis to uncover broker performance trends, segment activity patterns, and generate actionable insights from mortgage datasets."
+    ],
+    tech: ["Python", "Pandas", "scikit-learn", "Data Analytics", "Feature Engineering"],
+    bannerImg: "/project_imgs/pegasus_banner.svg",
+    logoImg: "/project_imgs/pegasus.webp",
+    github: "",
+    certificate: "https://drive.google.com/file/d/1VpX5aVBOJr2sxxWYyr7QESAljO21sfkL/view?usp=drive_link"
   }
 ]
 
@@ -34,7 +50,7 @@ export function ExperienceSection() {
 
   return (
     <section id="experience" className="py-12 md:py-20 px-6" ref={ref}>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -47,8 +63,8 @@ export function ExperienceSection() {
           <div className="w-20 h-1 bg-primary mx-auto mb-8 md:mb-12 rounded-full" />
         </motion.div>
 
-        {/* Experience List Container */}
-        <div className="flex flex-col items-center gap-8">
+        {/* Horizontal Scroll Container */}
+        <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
           {experiences.map((exp, index) => {
             const hasBanner = exp.bannerImg && !bannerError[index]
             const hasLogo = exp.logoImg && !logoError[index]
@@ -56,10 +72,10 @@ export function ExperienceSection() {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                initial={{ opacity: 0, x: 40}}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="w-full max-w-2xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl overflow-hidden shadow-xl hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] hover:border-primary/40 hover:scale-[1.01] transition-all duration-300 group"
+                className="snap-start shrink-0 w-[85vw] sm:w-[480px] md:w-[520px] bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl overflow-hidden shadow-xl hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] hover:border-primary/40 transition-all duration-300 group"
               >
                 {/* Banner / Header Image Area */}
                 <div className="relative h-44 md:h-64 w-full overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-[var(--glass-border)]">
@@ -86,14 +102,14 @@ export function ExperienceSection() {
                   
                   {/* Company Logo in rectangular frame overlapping banner */}
                   <div className="absolute -top-8 md:-top-10 left-4 md:left-6 z-20">
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-background border-2 border-primary overflow-hidden shadow-lg flex items-center justify-center">
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-white border-2 border-primary overflow-hidden shadow-lg flex items-center justify-center p-1.5">
                       {hasLogo ? (
                         <Image
                           src={exp.logoImg}
                           alt={`${exp.company} Logo`}
                           width={80}
                           height={80}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                           onError={() => setLogoError(prev => ({ ...prev, [index]: true }))}
                         />
                       ) : (
