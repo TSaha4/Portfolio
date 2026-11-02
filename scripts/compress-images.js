@@ -16,6 +16,7 @@ const PROJECT_IMGS_DIR = path.join(PUBLIC_DIR, 'project_imgs');
 const imgConfigs = [
   // Project images
   { src: path.join(PROJECT_IMGS_DIR, 'drone.png'), dest: path.join(PROJECT_IMGS_DIR, 'drone.webp'), maxWidth: 1200 },
+  { src: path.join(PROJECT_IMGS_DIR, 'listen.png'), dest: path.join(PROJECT_IMGS_DIR, 'listen.webp'), maxWidth: 1200 },
   { src: path.join(PROJECT_IMGS_DIR, 'latch.png'), dest: path.join(PROJECT_IMGS_DIR, 'latch.webp'), maxWidth: 1200 },
   { src: path.join(PROJECT_IMGS_DIR, 'upryt.png'), dest: path.join(PROJECT_IMGS_DIR, 'upryt.webp'), maxWidth: 1200 },
   { src: path.join(PROJECT_IMGS_DIR, 'medibot.png'), dest: path.join(PROJECT_IMGS_DIR, 'medibot.webp'), maxWidth: 1200 },

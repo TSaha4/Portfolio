@@ -12,6 +12,8 @@ import { Footer } from "@/components/footer"
 import dynamic from "next/dynamic"
 
 const NeuralBackground = dynamic(() => import("@/components/neural-background").then(mod => mod.NeuralBackground), { ssr: false })
+const CustomCursor = dynamic(() => import("@/components/custom-cursor").then(mod => mod.CustomCursor), { ssr: false })
+const MouseParticles = dynamic(() => import("@/components/mouse-particles").then(mod => mod.MouseParticles), { ssr: false })
 const AboutSection = dynamic(() => import("@/components/about-section").then(mod => mod.AboutSection))
 const ProjectsSection = dynamic(() => import("@/components/projects-section").then(mod => mod.ProjectsSection))
 const ExperienceSection = dynamic(() => import("@/components/experience-section").then(mod => mod.ExperienceSection))
@@ -50,6 +52,8 @@ export default function Portfolio() {
         {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
       </AnimatePresence>
       
+      <CustomCursor />
+      <MouseParticles />
       <main className={`relative min-h-screen ${isLoading ? "h-screen overflow-hidden" : ""}`}>
         <NeuralBackground />
         <ScrollProgress />

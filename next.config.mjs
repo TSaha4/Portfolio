@@ -4,6 +4,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    qualities: [75, 100],
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {

@@ -3,15 +3,33 @@
 import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect, useCallback } from "react"
 import Image from "next/image"
-import { Github, ChevronLeft, ChevronRight, ArrowUpRight, ArrowRight } from "lucide-react"
+import { Github, ChevronLeft, ChevronRight, ArrowUpRight, ArrowRight, Play, ExternalLink } from "lucide-react"
 
-const projects = [
+interface Project {
+  title: string
+  description: string
+  image: string
+  tech: string[]
+  github: string
+  video?: string
+  live?: string
+}
+
+const projects: Project[] = [
   {
-    title: "Drone Flood-Relief Mission Planner",
-    description: "Converts flood maps into executable drone missions by detecting safe drop zones and generating optimized flight paths using geometric analysis and TSP heuristics. Outputs MAVLink waypoint files ready for real-world UAV deployment.",
+    title: "A.D.A.P.T. – Autonomous Drone Path Tracking",
+    description: "A weather-informed multi-base UAV relief mission planner that converts annotated flood rasters and Open-Meteo weather data into executable QGroundControl WPL 110 missions. Implements D* Lite path planning, morphological flood dilation modeling, dry-ground drop allocation, and ArduCopter SITL simulation.",
     image: "/project_imgs/drone.webp",
-    tech: ["Python", "OpenCV", "NumPy", "Matplotlib"],
-    github: "https://github.com/TSaha4/AI-Powered-Drone-Path-Planning-System-for-Flood-Relief",
+    tech: ["Python", "OpenCV", "D* Lite", "MAVLink / SITL", "QGroundControl", "NumPy"],
+    github: "https://github.com/TSaha4/A.D.A.P.T.-Autonomous-Drone-for-Adaptive-Path-Tracking",
+  },
+  {
+    title: "LISTEN – Explainable Spoken QA Network",
+    description: "An explainable audio/video question-answering framework combining Faster-Whisper ASR, FAISS vector indexing, and a 2-layer Graph Attention Network (GAT) over multi-relational evidence graphs. Delivers grounded answers via Google Gemini with segment citations, SHAP token attribution, and counterfactual sensitivity testing.",
+    image: "/project_imgs/listen.webp",
+    tech: ["FastAPI", "React", "PyTorch Geometric (GAT)", "Faster-Whisper", "FAISS", "Google Gemini", "SHAP"],
+    github: "https://github.com/TSaha4/LISTEN-Layered-Interpretable-Speech-to-Text-Evidence-Network",
+    video: "https://drive.google.com/file/d/1r-Vepi54ZoQkaH3Erb4P5y1y0idMkryk/view?usp=drive_link",
   },
   {
     title: "Latch – Auto WiFi Login App",
@@ -201,25 +219,91 @@ export function ProjectsSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
-                  {/* Bottom Right GitHub Link Badge */}
-                  <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-20 hidden md:block">
+                  {/* Action Link Badges (Desktop) */}
+                  <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-20 hidden md:flex items-center gap-2">
+                    {project.video && (
+                      <a
+                        href={project.video}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md border border-[var(--glass-border)] shadow-lg hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 group/btn"
+                        aria-label="Watch Demo Video"
+                        title="Watch Demo Video"
+                      >
+                        <span className="text-xs font-bold">Video</span>
+                        <Play className="w-3.5 h-3.5 fill-current" />
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md border border-[var(--glass-border)] shadow-lg hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 group/btn"
+                        aria-label="Live Demo"
+                        title="Live Demo"
+                      >
+                        <span className="text-xs font-bold">Live</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-background/90 backdrop-blur-md border border-[var(--glass-border)] shadow-lg hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 group/btn"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md border border-[var(--glass-border)] shadow-lg hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 group/btn"
                       aria-label="View on GitHub"
+                      title="View on GitHub"
                     >
-                      <span className="text-xs md:text-sm font-bold">GitHub</span>
-                      <Github className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                      <ArrowUpRight className="w-3.5 h-3.5 md:w-4 md:h-4 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                      <span className="text-xs font-bold">GitHub</span>
+                      <Github className="w-3.5 h-3.5" />
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
                     </a>
                   </div>
                 </div>
 
                 {/* Project Info */}
                 <div className="p-4 md:p-6 flex flex-col flex-1 overflow-y-auto scrollbar-hide">
-                  <h3 className="text-lg md:text-xl font-semibold mb-1 md:mb-2 text-primary">{project.title}</h3>
+                  <div className="flex items-start justify-between gap-2 mb-1 md:mb-2">
+                    <h3 className="text-lg md:text-xl font-semibold text-primary">{project.title}</h3>
+                    {/* Mobile quick links */}
+                    <div className="flex items-center gap-1.5 shrink-0 md:hidden z-20">
+                      {project.video && (
+                        <a
+                          href={project.video}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                          aria-label="Watch Demo Video"
+                          title="Watch Demo Video"
+                        >
+                          <Play className="w-3.5 h-3.5 fill-current" />
+                        </a>
+                      )}
+                      {project.live && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                          aria-label="Live Demo"
+                          title="Live Demo"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                        aria-label="View on GitHub"
+                        title="View on GitHub"
+                      >
+                        <Github className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  </div>
                   <p className="text-muted-foreground text-xs md:text-sm mb-3 md:mb-4">
                     {project.description}
                   </p>

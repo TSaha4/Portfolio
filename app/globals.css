@@ -175,3 +175,12 @@
   }
 }
 
+/* ── Custom Cursor (Genshin Impact Style) ── */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+
+
