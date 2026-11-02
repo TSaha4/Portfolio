@@ -514,7 +514,7 @@ export function HeroSection({ onScrollPast }: HeroSectionProps) {
                     sizes="(max-w-768px) 224px, (max-w-1024px) 320px, 380px"
                     className="object-cover scale-105 transition-transform duration-500"
                     priority
-                    quality={100}
+                    unoptimized
                   />
 
                   {/* Dynamic interactive light sheen across photo when hovered */}

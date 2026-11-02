@@ -138,6 +138,8 @@ export function Navbar({ showNav, profileInNav }: NavbarProps) {
                     alt="Profile"
                     width={40}
                     height={40}
+                    unoptimized
+                    priority
                     className="rounded-full object-cover border-2 border-primary shrink-0 w-10 h-10"
                   />
                   <span className="text-lg font-semibold text-foreground whitespace-nowrap">
@@ -197,6 +199,8 @@ export function Navbar({ showNav, profileInNav }: NavbarProps) {
                         alt="Profile"
                         width={32}
                         height={32}
+                        unoptimized
+                        priority
                         className="rounded-full object-cover border-2 border-primary shrink-0 w-8 h-8"
                       />
                       <span className="text-sm font-semibold text-foreground">Tanmoy Saha</span>
