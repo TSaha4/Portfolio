@@ -104,7 +104,8 @@ export function EducationSection() {
                   viewport={{ once: true }}
                   transition={{ duration: 1.6, ease: "easeInOut" }}
                 />
-                <path d="M 50,200 Q 275,50 500,200 T 950,200" fill="none" stroke="var(--glow)" strokeWidth="3" className="edge-flow" strokeOpacity="0.5" />
+                {/* static gold dashes over the drawn line (an animated dash offset repainted this wide SVG every frame) */}
+                <path d="M 50,200 Q 275,50 500,200 T 950,200" fill="none" stroke="var(--glow)" strokeWidth="3" strokeDasharray="4 8" strokeOpacity="0.5" />
                 {/* Lines extending outwards to edges */}
                 <path d="M -50,200 L 50,200" fill="none" stroke="currentColor" strokeDasharray="10 10" strokeWidth="3" className="text-primary/20" />
                 <path d="M 950,200 L 1050,200" fill="none" stroke="currentColor" strokeDasharray="10 10" strokeWidth="3" className="text-primary/20" />
