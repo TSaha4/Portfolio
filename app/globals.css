@@ -36,7 +36,8 @@
 
 @layer base {
   * { @apply border-border; }
-  html { scroll-behavior: smooth; color-scheme: dark; overflow-x: clip; }
+  /* overflow on <html> is applied to the viewport, so nothing can widen the page; body stays visible so sticky still works */
+  html { scroll-behavior: smooth; color-scheme: dark; overflow-x: hidden; touch-action: manipulation; }
   body { @apply bg-background text-foreground; }
   ::selection { background: var(--primary); color: var(--primary-foreground); }
   :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }

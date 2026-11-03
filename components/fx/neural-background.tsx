@@ -18,7 +18,7 @@ export function NeuralBackground() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
   const createParticles = useCallback((width: number, height: number, isMobile: boolean) => {
-    const particleCount = isMobile ? 30 : 60
+    const particleCount = isMobile ? 18 : 60 // calmer behind text on small screens
     const particles: Particle[] = []
     
     for (let i = 0; i < particleCount; i++) {
@@ -55,8 +55,10 @@ export function NeuralBackground() {
     if (!ctx) return
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      // measure the CSS box (w-full h-full) rather than window.innerWidth, which can be wider than
+      // the screen on phones and made this canvas push the page sideways
+      canvas.width = canvas.clientWidth
+      canvas.height = canvas.clientHeight
       const isMobile = window.innerWidth < 768
       isMobileRef.current = isMobile
       particlesRef.current = createParticles(canvas.width, canvas.height, isMobile)
@@ -162,7 +164,7 @@ export function NeuralBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 -z-10 pointer-events-none"
+      className="pointer-events-none fixed inset-0 -z-10 h-full w-full"
       aria-hidden="true"
     />
   )

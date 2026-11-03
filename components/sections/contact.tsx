@@ -218,7 +218,7 @@ export function Contact() {
         <Reveal className="md:hidden"><MobileStrip /></Reveal>
 
         {/* plain-text fallback so contact details are always one glance away */}
-        <div className="mx-auto mt-5 flex max-w-3xl flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-sm text-muted-foreground">
+        <div className="mx-auto mt-5 hidden max-w-3xl flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-sm text-muted-foreground md:flex">
           {socials.map((s) => (
             <a key={s.id} href={s.href} {...(s.id !== "email" ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="hover:text-secondary">
               {s.label.toLowerCase()} · {s.handle}

@@ -14,7 +14,7 @@ export function Skills() {
   return (
     <section id="skills" className="relative py-16 md:py-24 px-6 sm:px-12 lg:px-24" ref={ref}>
       <div className="max-w-6xl mx-auto">
-        <LayerHeader id="skills" title="Tech stack." caption="The tools I reach for. Hover to focus one." note="my toolbox" />
+        <LayerHeader id="skills" title="Tech stack." caption="The tools I reach for." note="my toolbox" />
 
         <motion.div
           initial={{ opacity: 0 }}

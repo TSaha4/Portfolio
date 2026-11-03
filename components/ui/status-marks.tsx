@@ -8,8 +8,8 @@ export function WaxStamp({ className }: { className?: string }) {
   return (
     <motion.div
       className={cn("pointer-events-none absolute z-20", className)}
-      initial={{ scale: 2.6, rotate: -40, opacity: 0 }}
-      whileInView={{ scale: [2.6, 0.92, 1.04, 1], rotate: [-40, -8, -14, -12], opacity: 1 }}
+      initial={{ scale: 1.6, rotate: -40, opacity: 0 }}
+      whileInView={{ scale: [1.6, 0.92, 1.04, 1], rotate: [-40, -8, -14, -12], opacity: 1 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.7, delay: 0.5, times: [0, 0.6, 0.8, 1], ease: "easeOut" }}
       aria-label="Completed"

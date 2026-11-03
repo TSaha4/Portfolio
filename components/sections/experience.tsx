@@ -54,13 +54,13 @@ function Entry({ exp }: { exp: Experience }) {
           )}
         </div>
 
-        <p className="mt-3 text-sm font-medium text-foreground/90 md:mt-4 md:text-base">{exp.summary}</p>
-        <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-muted-foreground md:mt-3 md:space-y-2 md:text-base">
+        <p className="mt-4 hidden font-medium text-foreground/90 md:block">{exp.summary}</p>
+        <ul className="mt-3 space-y-1.5 text-[13px] leading-relaxed text-muted-foreground md:mt-3 md:space-y-2 md:text-base">
           {exp.points.map((pt) => <li key={pt} className="flex gap-2"><span className="mt-0.5 text-primary">▹</span>{pt}</li>)}
         </ul>
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap gap-1.5">
+          <div className="hidden flex-wrap gap-1.5 md:flex">
             {exp.tech.map((t) => <span key={t} className="rounded-full border border-border px-2.5 py-0.5 font-mono text-[11px] text-foreground/80">{t}</span>)}
           </div>
           <div className="flex gap-2">
