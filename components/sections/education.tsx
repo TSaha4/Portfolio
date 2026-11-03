@@ -55,7 +55,7 @@ export function EducationSection() {
 
                   {/* Content Card */}
                   <motion.div
-                    className={`relative bg-[var(--glass-bg)] backdrop-blur-xl border rounded-xl p-3.5 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 ${isVIT ? 'border-primary shadow-primary/20' : 'border-[var(--glass-border)] hover:border-primary/30'}`}
+                    className={`relative bg-[var(--card-solid)] border rounded-xl p-3.5 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 ${isVIT ? 'border-primary shadow-primary/20' : 'border-[var(--glass-border)] hover:border-primary/30'}`}
                   >
                     {isVIT && (
                       <div className="absolute -top-2.5 -right-1 bg-primary text-primary-foreground text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg z-10">
@@ -135,7 +135,7 @@ export function EducationSection() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: index * 0.3 + 0.2 }}
-                      className={`absolute w-[300px] lg:w-[350px] bg-[var(--glass-bg)] backdrop-blur-xl border ${isVIT ? 'border-primary shadow-primary/20' : 'border-[var(--glass-border)]'} rounded-xl p-6 shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:z-30 ${isTop ? 'bottom-full mb-8' : 'top-full mt-8'} ${index === 0 ? 'left-[-20px] lg:left-[-40px]' : index === 2 ? 'right-[-20px] lg:right-[-40px]' : 'left-1/2 -translate-x-1/2'} ${isVIT ? 'scale-105 hover:scale-110 origin-top-right' : ''}`}
+                      className={`absolute w-[300px] lg:w-[350px] bg-[var(--card-solid)] border ${isVIT ? 'border-primary shadow-primary/20' : 'border-[var(--glass-border)]'} rounded-xl p-6 shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:z-30 ${isTop ? 'bottom-full mb-8' : 'top-full mt-8'} ${index === 0 ? 'left-[-20px] lg:left-[-40px]' : index === 2 ? 'right-[-20px] lg:right-[-40px]' : 'left-1/2 -translate-x-1/2'} ${isVIT ? 'scale-105 hover:scale-110 origin-top-right' : ''}`}
                     >
                       {isVIT && (
                         <div className="absolute -top-4 -right-3 bg-primary text-primary-foreground text-[11px] font-bold px-4 py-1.5 rounded-full shadow-lg z-10">
@@ -195,7 +195,7 @@ export function EducationSection() {
                 {/* Tape */}
                 <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-10 h-3 bg-muted-foreground/25 rotate-[-2deg] shadow-sm z-10" />
 
-                <div className="bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-xl p-4 shadow-lg hover:shadow-xl hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden flex flex-col gap-3">
+                <div className="bg-[var(--card-solid)] border border-[var(--glass-border)] rounded-xl p-4 shadow-lg hover:shadow-xl hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden flex flex-col gap-3">
                   {/* Glow blob */}
                   <div className="absolute -right-6 -top-6 w-20 h-20 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-500 pointer-events-none" />
 
@@ -227,7 +227,7 @@ export function EducationSection() {
                       href={item.link}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground bg-[var(--glass-bg)] border border-[var(--glass-border)] px-3 py-1.5 rounded-lg hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground bg-[var(--card-solid)] border border-[var(--glass-border)] px-3 py-1.5 rounded-lg hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {item.linkText}
@@ -267,10 +267,10 @@ export function EducationSection() {
                 className={`relative group ${rotateClass} transition-transform duration-500 md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]`}
               >
                 {/* Slam book tape effect */}
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-muted-foreground/20 backdrop-blur-sm rotate-[-3deg] shadow-sm z-10" />
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-muted-foreground/20 rotate-[-3deg] shadow-sm z-10" />
 
                 <motion.div
-                  className={`h-full bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:border-primary/40 transition-all duration-300 ${hoverRotateClass} hover:-translate-y-2 relative overflow-hidden`}
+                  className={`h-full bg-[var(--card-solid)] border border-[var(--glass-border)] rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:border-primary/40 transition-all duration-300 ${hoverRotateClass} hover:-translate-y-2 relative overflow-hidden`}
                 >
                   <div className="absolute -right-10 -top-10 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-500" />
                   
@@ -304,7 +304,7 @@ export function EducationSection() {
                         href={item.link}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-2 text-sm font-medium text-foreground bg-[var(--glass-bg)] border border-[var(--glass-border)] shadow-sm px-5 py-2.5 rounded-xl hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 group/btn"
+                        className="flex items-center gap-2 text-sm font-medium text-foreground bg-[var(--card-solid)] border border-[var(--glass-border)] shadow-sm px-5 py-2.5 rounded-xl hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 group/btn"
                       >
                         {item.linkText}
                         <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />

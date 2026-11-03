@@ -44,6 +44,39 @@ function ScreensCollage({ screens, title }: { screens: string[]; title: string }
   )
 }
 
+/** Phones: the write-up as an ordinary description under the image banner. */
+function PlainInfo({ p, front }: { p: ClubProject; front: boolean }) {
+  return (
+    <div className={cn("flex min-h-0 flex-1 flex-col overflow-y-auto p-4 scrollbar-hide", !front && "pointer-events-none")}>
+      <div className="flex flex-wrap items-center gap-2">
+        <h3 className="font-display text-xl font-bold tracking-tight">{p.title}</h3>
+        {p.status !== "shipped" && (
+          <span className="animate-pulse rounded-full border border-violet-300/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-violet-200">ongoing</span>
+        )}
+      </div>
+      <p className="font-hand text-lg leading-tight text-violet-200">{p.tagline}</p>
+      <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">{p.description}</p>
+      <p className="mt-2 text-[13px] text-foreground/85"><span className="text-primary">✷ </span>{p.highlights[0]}</p>
+      <div className="mt-auto flex flex-wrap items-center gap-2 pt-3">
+        {p.live ? (
+          <a href={p.live.href} target="_blank" rel="noopener noreferrer" tabIndex={front ? 0 : -1}
+            className="wobble inline-flex items-center gap-1.5 rounded-lg bg-foreground px-3.5 py-2 text-sm font-semibold text-background">
+            {p.live.label} <ArrowUpRight className="h-4 w-4" />
+          </a>
+        ) : (
+          <span className="rounded-lg border-2 border-dashed border-violet-300/50 px-3.5 py-1.5 text-sm font-semibold text-violet-200">Launching soon</span>
+        )}
+        {p.github && (
+          <a href={p.github} target="_blank" rel="noopener noreferrer" tabIndex={front ? 0 : -1} aria-label={`${p.title} source on GitHub`}
+            className="wobble grid h-9 w-9 place-items-center rounded-full border-2 border-foreground/70">
+            <Github className="h-4 w-4" />
+          </a>
+        )}
+      </div>
+    </div>
+  )
+}
+
 /** Signed shortest distance from the active slide, so the ring wraps both ways. */
 const offsetOf = (i: number, active: number) => {
   let o = i - active
@@ -62,7 +95,7 @@ function Slide({ p, index, offset, narrow, onSelect }: { p: ClubProject; index: 
       tabIndex={front ? undefined : 0}
       aria-label={front ? p.title : `Show ${p.title}`}
       onKeyDown={(e) => { if (!front && (e.key === "Enter" || e.key === " ")) onSelect() }}
-      className={cn("absolute left-1/2 top-0 h-full w-[84%] overflow-hidden rounded-3xl border-2 border-foreground/80 bg-muted shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] md:w-[62%]", !front && "cursor-pointer")}
+      className={cn("absolute left-1/2 top-0 h-full w-[84%] overflow-hidden rounded-3xl border-2 border-foreground/80 bg-muted shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] md:w-[62%]", narrow && "flex flex-col", !front && "cursor-pointer")}
       animate={{
         // phones: neighbours slide fully aside instead of peeking behind the front card
         x: `calc(-50% + ${offset * (narrow ? 112 : 62)}%)`,
@@ -74,8 +107,8 @@ function Slide({ p, index, offset, narrow, onSelect }: { p: ClubProject; index: 
       transition={{ type: "spring", stiffness: 260, damping: 30 }}
       style={{ pointerEvents: d > 1.5 ? "none" : "auto" }}
     >
-      {/* the image is the card */}
-      <div className="absolute inset-0 z-0 bg-background">
+      {/* the image is the card (desktop); a banner above the description (phones) */}
+      <div className={cn("z-0 bg-background", narrow ? "relative h-[42%] shrink-0 overflow-hidden border-b-2 border-foreground/80" : "absolute inset-0")}>
         {p.screens?.length ? (
           <ScreensCollage screens={p.screens} title={p.title} />
         ) : p.image ? (
@@ -83,13 +116,15 @@ function Slide({ p, index, offset, narrow, onSelect }: { p: ClubProject; index: 
         ) : (
           <FloorPlanArt />
         )}
-        <span className="absolute left-3 top-3 rounded-full bg-background/85 px-2.5 py-0.5 font-mono text-[11px] text-secondary backdrop-blur">
+        <span className="absolute left-3 top-3 rounded-full bg-background/85 px-2.5 py-0.5 font-mono text-[11px] text-secondary">
           {String(index + 1).padStart(2, "0")} / {String(N).padStart(2, "0")}
         </span>
       </div>
 
+      {narrow && <PlainInfo p={p} front={front} />}
+
       {/* sticky note with the write-up, taped on top; drops in when this card comes to the front */}
-      <motion.div
+      {!narrow && <motion.div
         initial={false}
         animate={front ? { opacity: 1, y: 0, rotate: index % 2 ? 2.5 : -2.5, scale: 1 } : { opacity: 0, y: -40, rotate: index % 2 ? 10 : -10, scale: 0.9 }}
         transition={{ type: "spring", stiffness: 220, damping: 16, delay: front ? 0.25 : 0 }}
@@ -102,7 +137,7 @@ function Slide({ p, index, offset, narrow, onSelect }: { p: ClubProject; index: 
         )}
       >
         {/* strip of tape */}
-        <span className="absolute -top-3 left-1/2 h-6 w-24 -translate-x-1/2 -rotate-2 bg-white/50 shadow-sm backdrop-blur-[1px]" />
+        <span className="absolute -top-3 left-1/2 h-6 w-24 -translate-x-1/2 -rotate-2 bg-white/50 shadow-sm" />
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="font-display text-2xl font-bold tracking-tight">{p.title}</h3>
           {p.status !== "shipped" && (
@@ -128,7 +163,7 @@ function Slide({ p, index, offset, narrow, onSelect }: { p: ClubProject; index: 
             </a>
           )}
         </div>
-      </motion.div>
+      </motion.div>}
     </motion.div>
   )
 }
@@ -162,7 +197,7 @@ export function Club() {
             <div className="flex items-center gap-3">
               <span className="-rotate-3 font-hand text-2xl text-secondary md:text-3xl">explore →</span>
               <a href={club.site} target="_blank" rel="noopener noreferrer" aria-label="Explore VinnovateIT"
-                className="wobble group inline-flex items-center gap-4 rounded-full border-2 border-violet-400/50 bg-[#140c2b]/80 py-3.5 pl-6 pr-5 shadow-[0_0_30px_-10px_rgba(167,139,250,0.7)] backdrop-blur-xl transition-colors hover:border-violet-300">
+                className="wobble group inline-flex items-center gap-4 rounded-full border-2 border-violet-400/50 bg-[#140c2b]/80 py-3.5 pl-6 pr-5 shadow-[0_0_30px_-10px_rgba(167,139,250,0.7)] transition-colors hover:border-violet-300">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={club.logo} alt={`${club.name} logo`} className="h-9 w-auto md:h-10" />
                 <ArrowUpRight className="h-5 w-5 text-violet-200 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

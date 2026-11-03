@@ -81,7 +81,8 @@ export function ConvergenceField({ text, active = true, onStats, onLayout, class
     let raf = 0
     let epoch = 0
     let visible = true
-    const pointer = { x: -999, y: -999, active: false }
+    let settled = false
+    const pointer = { x: -999, y: -999, active: false, moved: 0 }
 
     const build = () => {
       w = canvas.clientWidth
@@ -105,13 +106,17 @@ export function ConvergenceField({ text, active = true, onStats, onLayout, class
         hot: 0,
       }))
       epoch = 0
+      settled = false
     }
 
     const frame = () => {
       raf = requestAnimationFrame(frame)
       if (!visible) return
+      // once the word has converged and nothing is disturbing it, the picture is static: don't repaint it
+      if (settled && (!pointer.active || performance.now() - pointer.moved > 1500)) return
       ctx.clearRect(0, 0, w, h)
       const batches: Particle[][] = [[], [], []]
+      let anyHot = false
       let loss = 0
       for (const p of particles) {
         const dx = p.tx - p.x
@@ -138,6 +143,7 @@ export function ConvergenceField({ text, active = true, onStats, onLayout, class
         const err = Math.abs(dx) + Math.abs(dy)
         loss += err
         // converged particles glow gold; ones still "learning" are dim; perturbed ones flare
+        if (p.hot > 0.01) anyHot = true
         batches[p.hot > 0.1 ? 2 : err > 20 ? 1 : 0].push(p)
       }
       batches.forEach((b, i) => {
@@ -147,6 +153,7 @@ export function ConvergenceField({ text, active = true, onStats, onLayout, class
         ctx.fill()
       })
       if (activeRef.current) epoch++
+      settled = activeRef.current && !anyHot && loss / Math.max(particles.length, 1) < 0.05
       if (epoch % 6 === 0) statsRef.current?.({ epoch, loss: loss / Math.max(particles.length, 1) })
     }
 
@@ -155,6 +162,7 @@ export function ConvergenceField({ text, active = true, onStats, onLayout, class
       pointer.x = e.clientX - r.left
       pointer.y = e.clientY - r.top
       pointer.active = !reduced
+      pointer.moved = performance.now()
     }
     const onLeave = () => (pointer.active = false)
     const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting))

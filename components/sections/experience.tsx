@@ -31,31 +31,31 @@ function Entry({ exp }: { exp: Experience }) {
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6, type: "spring", bounce: 0.25 }}
-        className="rounded-2xl border border-border bg-muted/60 p-5 backdrop-blur md:p-7"
+        className="rounded-2xl border border-border bg-muted/60 p-4 md:p-7"
       >
         <div className="flex flex-wrap items-start gap-4">
-          <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-white">
+          <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-white md:h-14 md:w-14">
             <Image src={exp.logo} alt={`${exp.company} logo`} fill sizes="56px" className="object-contain p-1.5" />
           </span>
           <div className="min-w-0 flex-1">
-            <h3 className="font-display text-2xl font-bold md:text-3xl">
+            <h3 className="font-display text-lg font-bold leading-snug md:text-3xl">
               {exp.role} <span className="text-primary">@{exp.company}</span>
             </h3>
-            <p className="mt-1 flex flex-wrap items-center gap-x-3 font-mono text-sm text-muted-foreground">
+            <p className="mt-1 flex flex-wrap items-center gap-x-3 font-mono text-xs text-muted-foreground md:text-sm">
               <span>{exp.period}</span>
               <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" />{exp.location}</span>
             </p>
           </div>
           {exp.metric && (
             <span className="basis-full rounded-xl border border-primary/50 bg-primary/10 px-3 py-2 text-center sm:basis-auto">
-              <span className="block font-display text-2xl font-bold text-glow">−{Math.round((1 - exp.metric.to / exp.metric.from) * 100)}%</span>
+              <span className="block font-display text-xl font-bold text-glow md:text-2xl">−{Math.round((1 - exp.metric.to / exp.metric.from) * 100)}%</span>
               <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{exp.metric.label}</span>
             </span>
           )}
         </div>
 
-        <p className="mt-4 font-medium text-foreground/90">{exp.summary}</p>
-        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+        <p className="mt-3 text-sm font-medium text-foreground/90 md:mt-4 md:text-base">{exp.summary}</p>
+        <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-muted-foreground md:mt-3 md:space-y-2 md:text-base">
           {exp.points.map((pt) => <li key={pt} className="flex gap-2"><span className="mt-0.5 text-primary">▹</span>{pt}</li>)}
         </ul>
 
