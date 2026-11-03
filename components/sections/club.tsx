@@ -47,7 +47,8 @@ function ScreensCollage({ screens, title }: { screens: string[]; title: string }
 /** Phones: the write-up as an ordinary description under the image banner. */
 function PlainInfo({ p, front }: { p: ClubProject; front: boolean }) {
   return (
-    <div className={cn("flex min-h-0 flex-1 flex-col overflow-y-auto p-4 scrollbar-hide", !front && "pointer-events-none")}>
+    <div className={cn("flex min-h-0 flex-1 flex-col overflow-hidden p-4", !front && "pointer-events-none")}>
+      {/* no inner scrolling: a scroll box inside a swipeable card swallowed vertical page scrolls on phones */}
       <div className="flex flex-wrap items-center gap-2">
         <h3 className="font-display text-xl font-bold tracking-tight">{p.title}</h3>
         {p.status !== "shipped" && (
@@ -55,8 +56,8 @@ function PlainInfo({ p, front }: { p: ClubProject; front: boolean }) {
         )}
       </div>
       <p className="font-hand text-lg leading-tight text-violet-200">{p.tagline}</p>
-      <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">{p.description}</p>
-      <p className="mt-2 text-[13px] text-foreground/85"><span className="text-primary">✷ </span>{p.highlights[0]}</p>
+      <p className="mt-2 line-clamp-4 text-[13px] leading-relaxed text-muted-foreground">{p.description}</p>
+      <p className="mt-2 line-clamp-2 text-[13px] text-foreground/85"><span className="text-primary">✷ </span>{p.highlights[0]}</p>
       <div className="mt-auto flex flex-wrap items-center gap-2 pt-3">
         {p.live ? (
           <a href={p.live.href} target="_blank" rel="noopener noreferrer" tabIndex={front ? 0 : -1}
@@ -209,6 +210,8 @@ export function Club() {
         <Reveal>
           <div
             onMouseEnter={() => setPaused(true)}
+            // once someone touches the carousel, stop auto-advancing so it never rotates away under their thumb
+            onTouchStart={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onKeyDown={(e) => { if (e.key === "ArrowRight") go(1); if (e.key === "ArrowLeft") go(-1) }}
             tabIndex={0}
@@ -217,13 +220,15 @@ export function Club() {
             aria-label="Club projects"
             className="outline-none"
           >
-            {/* the stage: drag or swipe to rotate the ring */}
+            {/* the stage: a clearly horizontal swipe rotates the ring; vertical swipes keep scrolling the page.
+                Every descendant is pan-y so the card's scrollable description can't claim the gesture. */}
             <motion.div
-              className="relative mx-auto h-[clamp(27rem,125vw,32rem)] w-full touch-pan-y [perspective:1600px] md:h-[clamp(22rem,30vw,28rem)]"
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.15}
-              onDragEnd={(_, info) => { if (Math.abs(info.offset.x) > 60) go(info.offset.x < 0 ? 1 : -1) }}
+              className="relative mx-auto h-[clamp(27rem,125vw,32rem)] w-full [perspective:1600px] md:h-[clamp(22rem,30vw,28rem)] [&_*]:[touch-action:pan-y]"
+              style={{ touchAction: "pan-y" }}
+              onPanEnd={(_, info) => {
+                if (Math.abs(info.offset.x) < 50 || Math.abs(info.offset.x) < Math.abs(info.offset.y)) return
+                go(info.offset.x < 0 ? 1 : -1)
+              }}
             >
               {clubProjects.map((c, i) => <Slide key={c.id} p={c} index={i} offset={offsetOf(i, active)} narrow={narrow} onSelect={() => setActive(i)} />)}
             </motion.div>
