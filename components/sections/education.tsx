@@ -1,99 +1,25 @@
 "use client"
 
+import { certifications, education } from "@/content/education"
+import { LayerHeader } from "@/components/ui/layer-header"
+import { InProgress, WaxStamp } from "@/components/ui/status-marks"
+
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { GraduationCap, Calendar, Award, ExternalLink } from "lucide-react"
 import Image from "next/image"
-
-const education = [
-  {
-    degree: "B.Tech. in Computer Science (Specialization in AI/ML)",
-    school: "Vellore Institute of Technology, Vellore, Tamil Nadu",
-    period: "July 2023 – Present",
-    description: "CGPA: 9.26",
-  },
-  {
-    degree: "Class XII (CBSE)",
-    school: "Delhi Public School, Ranchi, Jharkhand",
-    period: "Apr 2020 – Mar 2022",
-    description: "Percentage: 93.6%",
-  },
-  {
-    degree: "Class X (CBSE)",
-    school: "Delhi Public School, Ranchi, Jharkhand",
-    period: "Apr 2018 – Mar 2020",
-    description: "Percentage: 94%",
-  },
-]
-
-const certifications = [
-  {
-    title: "Amazon ML Summer School",
-    issuer: "Amazon",
-    period: "Completed",
-    linkText: "View Certificate",
-    link: "https://drive.google.com/file/d/18AYIfUNirr7Aovegi4DccvNVkQQe4hgC/view?usp=drive_link",
-    logoImg: "/project_imgs/amazon.webp"
-  },
-  {
-    title: "AI Upskilling Certificate",
-    issuer: "Qualcomm",
-    period: "Completed",
-    linkText: "View Certificate",
-    link: "https://drive.google.com/file/d/1jRMMzy_lt86Og3X7aYlTq2ounNg0owzv/view?usp=drive_link",
-    logoImg: "/project_imgs/qualcomm.webp"
-  },
-  {
-    title: "IBM Generative AI Certificate",
-    issuer: "VIT\nIBM",
-    period: "May 2025",
-    linkText: "View Certificate",
-    link: "https://drive.google.com/file/d/1B9xG47UtZXMmRziXadvySNTsbJ9OjihQ/view?usp=sharing",
-    logoImg: "/project_imgs/ibm.webp"
-  },
-  {
-    title: "Machine Learning Specialization",
-    issuer: "Stanford University,\nCoursera",
-    period: "Completed",
-    linkText: "View Certificate",
-    link: "https://drive.google.com/file/d/1ERTUzOq7BtbTY7MEtl3fvJ7Zh_yFWPMg/view?usp=sharing",
-    logoImg: "/project_imgs/coursera.webp"
-  },
-  {
-    title: "Forage Virtual Experience Programs",
-    issuer: [
-      "British Airways (Data Science)",
-      "Deloitte (Data Analytics)",
-      "Quantium (Commercial Analytics)",
-      "Tata Group (GenAI)"
-    ],
-    period: "Completed",
-    linkText: "View All",
-    link: "https://www.linkedin.com/feed/update/urn:li:activity:7412005178058637313/",
-    logoImg: "/project_imgs/forage.webp"
-  },
-]
 
 export function EducationSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="education" className="py-12 px-4 md:px-8" ref={ref}>
-      <div className="max-w-7xl mx-auto space-y-14">
+    <section id="checkpoints" className="relative py-16 px-6 sm:px-12 lg:px-24 md:py-24" ref={ref}>
+      <div className="max-w-6xl mx-auto space-y-14">
         
         {/* Education Block */}
         <div>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4">
-              <span className="text-primary">Education</span>
-            </h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-8 md:mb-12 rounded-full" />
-          </motion.div>
+          <LayerHeader id="checkpoints" title="Education & certifications." caption="Checkpoints saved along the way." note="where i learned" />
 
           <div className="w-full">
             {/* Mobile Vertical Timeline */}
@@ -136,6 +62,7 @@ export function EducationSection() {
                         CURRENT
                       </div>
                     )}
+                    {!isVIT && <WaxStamp className="-right-3 -top-4 h-14 w-14" />}
                     
                     {/* Period badge */}
                     <div className={`flex items-center gap-1.5 text-[10px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full w-fit mb-2 ${isVIT ? 'bg-primary/20' : ''}`}>
@@ -155,7 +82,8 @@ export function EducationSection() {
                     <p className="text-primary/80 font-medium mb-1.5 text-xs">{item.school}</p>
 
                     {/* Description */}
-                    <p className="text-muted-foreground text-xs font-semibold">{item.description}</p>
+                    <p className="text-muted-foreground text-xs font-semibold">{item.score}</p>
+                    {isVIT && <InProgress label="degree in progress" compact />}
                   </motion.div>
                 </motion.div>
               )})}
@@ -165,14 +93,18 @@ export function EducationSection() {
             <div className="hidden md:block relative w-full h-[600px] mt-10">
               <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1000 400">
                 {/* Wavy line connecting the dots */}
-                <path 
-                  d="M 50,200 Q 275,50 500,200 T 950,200" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeDasharray="10 10" 
-                  strokeWidth="3" 
-                  className="text-primary/50" 
+                <motion.path
+                  d="M 50,200 Q 275,50 500,200 T 950,200"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  className="text-primary/50"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.6, ease: "easeInOut" }}
                 />
+                <path d="M 50,200 Q 275,50 500,200 T 950,200" fill="none" stroke="var(--glow)" strokeWidth="3" className="edge-flow" strokeOpacity="0.5" />
                 {/* Lines extending outwards to edges */}
                 <path d="M -50,200 L 50,200" fill="none" stroke="currentColor" strokeDasharray="10 10" strokeWidth="3" className="text-primary/20" />
                 <path d="M 950,200 L 1050,200" fill="none" stroke="currentColor" strokeDasharray="10 10" strokeWidth="3" className="text-primary/20" />
@@ -210,6 +142,7 @@ export function EducationSection() {
                           CURRENT
                         </div>
                       )}
+                      {!isVIT && <WaxStamp className="-right-6 -top-6 h-20 w-20" />}
                       <div className={`flex items-center gap-2 text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full w-fit mb-3 ${isVIT ? 'bg-primary/20' : ''}`}>
                         <Calendar className="w-3.5 h-3.5" />
                         {item.period}
@@ -224,7 +157,8 @@ export function EducationSection() {
 
                       <p className="text-primary/80 font-medium mb-3 text-sm ml-8 lg:ml-10">{item.school}</p>
                       
-                      <p className="text-muted-foreground text-sm ml-8 lg:ml-10 font-semibold">{item.description}</p>
+                      <p className="text-muted-foreground text-sm ml-8 lg:ml-10 font-semibold">{item.score}</p>
+                      {isVIT && <div className="ml-8 lg:ml-10"><InProgress label="degree in progress" /></div>}
                     </motion.div>
                   </div>
                 )
@@ -300,10 +234,10 @@ export function EducationSection() {
                       <ExternalLink className="w-3 h-3" />
                     </a>
 
-                    {item.logoImg && (
+                    {item.logo && (
                       <div className={`w-16 h-10 rounded-xl ${item.logoBg || 'bg-white'} border-2 border-primary overflow-hidden shadow-md shrink-0 flex items-center justify-center p-1.5 transition-transform duration-300 group-hover:scale-105`}>
                         <Image
-                          src={item.logoImg}
+                          src={item.logo}
                           alt={`${item.title} Logo`}
                           width={64}
                           height={40}
@@ -318,7 +252,7 @@ export function EducationSection() {
           </div>
 
           {/* Desktop: original tilted note-card grid */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 px-4">
+          <div className="hidden md:flex md:flex-wrap md:justify-center gap-8 mt-12 px-4">
             {certifications.map((item, index) => {
               const rotateClass = index % 2 === 0 ? "rotate-2" : "-rotate-2";
               const hoverRotateClass = index % 2 === 0 ? "hover:-rotate-1" : "hover:rotate-1";
@@ -330,7 +264,7 @@ export function EducationSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative group ${rotateClass} transition-transform duration-500`}
+                className={`relative group ${rotateClass} transition-transform duration-500 md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]`}
               >
                 {/* Slam book tape effect */}
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-muted-foreground/20 backdrop-blur-sm rotate-[-3deg] shadow-sm z-10" />
@@ -376,10 +310,10 @@ export function EducationSection() {
                         <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
                       </a>
 
-                      {item.logoImg && (
+                      {item.logo && (
                         <div className={`w-20 h-12 md:w-24 md:h-14 rounded-2xl ${item.logoBg || 'bg-white'} border-2 border-primary overflow-hidden shadow-lg shrink-0 flex items-center justify-center p-2 transition-transform duration-300 group-hover:scale-105`}>
                           <Image
-                            src={item.logoImg}
+                            src={item.logo}
                             alt={`${item.title} Logo`}
                             width={96}
                             height={56}
