@@ -1,186 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Sixtyfour&family=Space+Grotesk:wght@400&display=swap');
 @import 'tailwindcss';
-@import 'tw-animate-css';
 
-@custom-variant dark (&:is(.dark *));
-
+/* Palette preserved from the original portfolio: midnight + gold. Gold now means "activation". */
 :root {
-  /* Dark mode - Deep black with gold accents */
-  --background: #0F0F1A;
-  --foreground: #F5F5F5;
-  --card: rgba(20, 20, 35, 0.7);
-  --card-foreground: #F5F5F5;
-  --popover: rgba(20, 20, 35, 0.9);
-  --popover-foreground: #F5F5F5;
-  --primary: #D4AF37;
-  --primary-foreground: #0F0F1A;
-  --secondary: #F5D76E;
-  --secondary-foreground: #0F0F1A;
-  --muted: #1A1A2E;
-  --muted-foreground: #9CA3AF;
-  --accent: #F5D76E;
-  --accent-foreground: #0F0F1A;
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: #F5F5F5;
+  --background: #0f0f1a;
+  --foreground: #f5f5f5;
+  --primary: #d4af37;
+  --primary-foreground: #0f0f1a;
+  --secondary: #f5d76e;
+  --glow: #ffe500;
+  --muted: #1a1a2e;
+  --muted-foreground: #9ca3af;
   --border: rgba(212, 175, 55, 0.2);
-  --input: rgba(212, 175, 55, 0.1);
-  --ring: #D4AF37;
-  --radius: 0.75rem;
-  
-  /* Glass effect dark */
   --glass-bg: rgba(15, 15, 26, 0.6);
-  --glass-border: rgba(212, 175, 55, 0.2);
+  --radius: 0.75rem;
 }
 
 @theme inline {
-  --font-sans: var(--font-inter), 'Geist', sans-serif;
-  --font-serif: var(--font-playfair), serif;
-  --font-mono: 'Geist Mono', monospace;
-  --font-sixtyfour: var(--font-sixtyfour), 'Sixtyfour', monospace;
-  --font-space-grotesk: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  --font-pixel: var(--font-sixtyfour), monospace;
+  --font-hand: var(--font-caveat), cursive;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  --color-glow: var(--glow);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-glass-bg: var(--glass-bg);
-  --color-glass-border: var(--glass-border);
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; color-scheme: dark; overflow-x: clip; }
+  body { @apply bg-background text-foreground; }
+  ::selection { background: var(--primary); color: var(--primary-foreground); }
+  :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--muted); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+
+/* Faint dot lattice: the "weight matrix" every layer sits on */
+.lattice {
+  background-image: radial-gradient(rgba(212, 175, 55, 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--muted);
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 4px;
-}
+/* Signal travelling along an SVG edge */
+@keyframes dash-flow { to { stroke-dashoffset: -24; } }
+.edge-flow { stroke-dasharray: 4 8; animation: dash-flow 1.2s linear infinite; }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary);
-}
+/* CV detection scan used by the project inspector */
+@keyframes scan { 0% { transform: translateY(-10%); } 100% { transform: translateY(110%); } }
+.scanline { animation: scan 2.4s cubic-bezier(.6,0,.4,1) infinite; }
 
-/* Typing animation */
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
+/* The original portfolio's playful button wobble, reused everywhere */
+@keyframes wobble { 0%,100% { transform: rotate(0); } 20% { transform: rotate(-18deg); } 40% { transform: rotate(14deg); } 60% { transform: rotate(-10deg); } 80% { transform: rotate(8deg); } }
+.wobble:hover, .wobble-now { animation: wobble 0.5s ease-in-out; }
 
-.typing-cursor::after {
-  content: '|';
-  animation: blink 1s infinite;
-  color: var(--primary);
-}
-/* Hide scrollbar utility */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
+@keyframes marquee-left { to { transform: translateX(-50%); } }
+@keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
+@keyframes blink { 50% { opacity: 0; } }
+.caret::after { content: '▋'; margin-left: 2px; color: var(--primary); animation: blink 1s steps(1) infinite; }
 
-@keyframes marquee-scroll-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+.scrollbar-hide { scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
 
-@keyframes marquee-scroll-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-
-.marquee-row {
-  display: flex;
-  overflow: hidden;
-  width: 100%;
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 0;
-}
-
-/* To adjust marquee speed, change the duration values below:
-   Higher = slower, Lower = faster */
-.marquee-left {
-  animation: marquee-scroll-left 90s linear infinite;
-}
-
-.marquee-right {
-  animation: marquee-scroll-right 105s linear infinite;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-.marquee-word {
-  display: inline-block;
-  transform-origin: center;
-  transition: transform 0.2s ease;
-  cursor: pointer;
-}
-
-.marquee-word:hover {
-  transform: scale(1.15);
-}
-
-@layer utilities {
-  .marquee-word,
-  .marquee-word.yellow,
-  .marquee-word-yellow,
-  .marquee-word.white,
-  .marquee-word-white {
-    font-family: 'Sixtyfour', monospace !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.02em !important;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* ── Custom Cursor (Genshin Impact Style) ── */
-@media (pointer: fine) {
-  * {
-    cursor: none !important;
-  }
-}
-
-
-
+/* native cursor hidden only once the custom one has mounted (fine pointers) */
+.has-custom-cursor, .has-custom-cursor * { cursor: none !important; }

@@ -1,75 +1,43 @@
-"use client"
-
-import { useState, useEffect } from "react"
-import { AnimatePresence } from "framer-motion"
-import { LoadingScreen } from "@/components/loading-screen"
-import { Navbar } from "@/components/navbar"
-import { HeroSection } from "@/components/hero-section"
-import { ScrollProgress } from "@/components/scroll-progress"
-import { BackToTop } from "@/components/back-to-top"
-import { Footer } from "@/components/footer"
-
 import dynamic from "next/dynamic"
+import { Hero } from "@/components/sections/hero"
+import { Navbar } from "@/components/layout/navbar"
+import { Intro } from "@/components/layout/intro"
+import { Footer } from "@/components/layout/footer"
+import { Marquee } from "@/components/ui/marquee"
 
-const NeuralBackground = dynamic(() => import("@/components/neural-background").then(mod => mod.NeuralBackground), { ssr: false })
-const CustomCursor = dynamic(() => import("@/components/custom-cursor").then(mod => mod.CustomCursor), { ssr: false })
-const MouseParticles = dynamic(() => import("@/components/mouse-particles").then(mod => mod.MouseParticles), { ssr: false })
-const AboutSection = dynamic(() => import("@/components/about-section").then(mod => mod.AboutSection))
-const ProjectsSection = dynamic(() => import("@/components/projects-section").then(mod => mod.ProjectsSection))
-const ExperienceSection = dynamic(() => import("@/components/experience-section").then(mod => mod.ExperienceSection))
-const EducationSection = dynamic(() => import("@/components/education-section").then(mod => mod.EducationSection))
-const SkillsSection = dynamic(() => import("@/components/skills-section").then(mod => mod.SkillsSection))
-const ContactSection = dynamic(() => import("@/components/contact-section").then(mod => mod.ContactSection))
+// below-the-fold layers are split into their own chunks
+const About = dynamic(() => import("@/components/sections/about").then((m) => m.About))
+const Projects = dynamic(() => import("@/components/sections/projects").then((m) => m.Projects))
+const Club = dynamic(() => import("@/components/sections/club").then((m) => m.Club))
+const Skills = dynamic(() => import("@/components/sections/skills").then((m) => m.Skills))
+const Experience = dynamic(() => import("@/components/sections/experience").then((m) => m.ExperienceSection))
+const Education = dynamic(() => import("@/components/sections/education").then((m) => m.EducationSection))
+const NeuralBackground = dynamic(() => import("@/components/fx/neural-background").then((m) => m.NeuralBackground))
+const CustomCursor = dynamic(() => import("@/components/fx/custom-cursor").then((m) => m.CustomCursor))
+const Contact = dynamic(() => import("@/components/sections/contact").then((m) => m.Contact))
 
-export default function Portfolio() {
-  const [showNav, setShowNav] = useState(false)
-  const [profileInNav, setProfileInNav] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    // Check if user has already seen the loading screen in this session
-    // UNCOMMENT THESE LINES TO REVERT TO ONCE-PER-SESSION
-    // const hasSeenLoading = sessionStorage.getItem("hasSeenLoading")
-    // if (hasSeenLoading) {
-    //   setIsLoading(false)
-    // }
-  }, [])
-
-  const handleLoadingComplete = () => {
-    setIsLoading(false)
-    // UNCOMMENT THIS LINE TO REVERT TO ONCE-PER-SESSION
-    // sessionStorage.setItem("hasSeenLoading", "true")
-  }
-
-  const handleScrollPast = (isPast: boolean) => {
-    setShowNav(isPast)
-    setProfileInNav(isPast)
-  }
-
+export default function Page() {
   return (
     <>
-      <AnimatePresence>
-        {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
-      </AnimatePresence>
-      
+      <a href="#about" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground">
+        Skip to content
+      </a>
+      <Intro />
+      <NeuralBackground />
       <CustomCursor />
-      <MouseParticles />
-      <main className={`relative min-h-screen ${isLoading ? "h-screen overflow-hidden" : ""}`}>
-        <NeuralBackground />
-        <ScrollProgress />
-        <Navbar showNav={showNav} profileInNav={profileInNav} />
-        
-        <HeroSection onScrollPast={handleScrollPast} />
-        <AboutSection />
-        <ProjectsSection />
-        <ExperienceSection />
-        <EducationSection />
-        <SkillsSection />
-        <ContactSection />
-        <Footer />
-        
-        <BackToTop />
+      <Navbar />
+      <main>
+        <Hero />
+        <Marquee />
+        <About />
+        <Projects />
+        <Experience />
+        <Club />
+        <Education />
+        <Skills />
+        <Contact />
       </main>
+      <Footer />
     </>
   )
 }
