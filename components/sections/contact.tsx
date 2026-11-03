@@ -41,6 +41,17 @@ function makeTrees() {
 }
 
 const facingOf = (a: Cell, b: Cell): Facing => (b[0] > a[0] ? "right" : b[0] < a[0] ? "left" : b[1] > a[1] ? "down" : "up")
+/** Speech bubble over mini-me inviting the first tap; hidden once the visitor interacts. */
+function ClickMe({ show }: { show: boolean }) {
+  if (!show) return null
+  return (
+    <span className="pointer-events-none absolute bottom-full left-1/2 mb-1 -translate-x-1/2 animate-bounce whitespace-nowrap rounded-xl border-2 border-foreground bg-background px-2.5 py-0.5 font-hand text-base font-bold text-foreground shadow-[3px_3px_0_var(--primary)]">
+      click me!
+      <span className="absolute -bottom-[7px] left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-foreground bg-background" />
+    </span>
+  )
+}
+
 /** Tap-to-wave: returns the current wave frame (undefined when idle) and a trigger. */
 function useWave() {
   const [frame, setFrame] = useState<number | undefined>(undefined)
@@ -71,7 +82,9 @@ export function Contact() {
   const [path, setPath] = useState<Set<string>>(new Set())
   const [rung, setRung] = useState<Id | null>(null)
   const [confused, setConfused] = useState(false)
-  const [waveFrame, wave] = useWave()
+  const [waveFrame, waveNow] = useWave()
+  const [hint, setHint] = useState(true)
+  const wave = () => { setHint(false); waveNow() }
   const [blocked, setBlocked] = useState<SocialLink | null>(null)
   const timers = useRef<ReturnType<typeof setTimeout>[]>([])
   const posRef = useRef(pos)
@@ -105,6 +118,7 @@ export function Contact() {
 
   /** Plan with A*, show the frontier, walk the route; arriving on a door rings it. */
   const goTo = (target: Cell) => {
+    setHint(false)
     clear()
     setConfused(false)
     setBlocked(null)
@@ -137,6 +151,7 @@ export function Contact() {
     const d = ({ ArrowUp: [0, -1], w: [0, -1], ArrowDown: [0, 1], s: [0, 1], ArrowLeft: [-1, 0], a: [-1, 0], ArrowRight: [1, 0], d: [1, 0] } as Record<string, Cell>)[e.key]
     if (!d) return
     e.preventDefault()
+    setHint(false)
     clear()
     setPath(new Set())
     const from = posRef.current
@@ -207,6 +222,7 @@ export function Contact() {
               {/* tap mini-me to get a wave */}
               <button type="button" onClick={(e) => { e.stopPropagation(); wave() }} aria-label="Wave at mini-me" className="absolute inset-0 z-10 cursor-pointer" />
               {/* taller than its tile, like overworld sprites that overlap the row above */}
+              <ClickMe show={hint} />
               <TrainerSprite facing={facing} step={step} wave={waveFrame} className="absolute bottom-0 left-[-12%] h-[135%] w-[124%] drop-shadow-[0_2px_0_rgba(0,0,0,0.5)]" />
               {confused && (
                 <span className="absolute -top-[95%] left-1/2 grid h-[90%] min-h-5 w-[90%] min-w-5 -translate-x-1/2 animate-bounce place-items-center rounded-md border-2 border-[#0b1220] bg-foreground font-mono text-sm font-bold text-background">?</span>
@@ -238,11 +254,14 @@ function MobileStrip() {
   const [step, setStep] = useState(0)
   const [pressed, setPressed] = useState<Id | null>(null)
   const [blocked, setBlocked] = useState<SocialLink | null>(null)
-  const [waveFrame, wave] = useWave()
+  const [waveFrame, waveNow] = useWave()
+  const [hint, setHint] = useState(true)
+  const wave = () => { setHint(false); waveNow() }
   const timers = useRef<ReturnType<typeof setTimeout>[]>([])
   useEffect(() => () => timers.current.forEach(clearTimeout), [])
 
   const press = (i: number) => {
+    setHint(false)
     timers.current.forEach(clearTimeout)
     timers.current = []
     setBlocked(null)
@@ -266,6 +285,7 @@ function MobileStrip() {
       <div className="relative h-16">
         <button type="button" onClick={wave} aria-label="Wave at mini-me"
           className="absolute bottom-0 h-16 w-12 -translate-x-1/2 transition-[left] ease-linear" style={{ left: `${(at * 2 + 1) * (100 / 6)}%`, transitionDuration: `${280}ms` }}>
+          <ClickMe show={hint} />
           <TrainerSprite facing={facing} step={step} wave={waveFrame} className="h-full w-full" />
         </button>
       </div>
