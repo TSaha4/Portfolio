@@ -37,7 +37,7 @@ function ScreensCollage({ screens, title }: { screens: string[]; title: string }
       {screens.slice(0, 5).map((src, i) => (
         <span key={src} className="absolute bottom-[-6%] left-1/2 aspect-[9/19] h-[92%] overflow-hidden rounded-[14px] border-2 border-foreground/80 bg-background shadow-[0_12px_30px_-8px_rgba(0,0,0,0.8)]"
           style={{ transform: `translateX(calc(-50% + ${(i - mid) * 34}%)) rotate(${(i - mid) * 7}deg)`, zIndex: 10 - Math.abs(Math.round(i - mid)) }}>
-          <Image src={src} alt={`${title} screen ${i + 1}`} fill sizes="160px" className="object-cover object-top" />
+          <Image src={src} loading="eager" fetchPriority="low" alt={`${title} screen ${i + 1}`} fill sizes="160px" className="object-cover object-top" />
         </span>
       ))}
     </div>
@@ -112,7 +112,7 @@ function Slide({ p, index, offset, narrow, onSelect }: { p: ClubProject; index: 
         {p.screens?.length ? (
           <ScreensCollage screens={p.screens} title={p.title} />
         ) : p.image ? (
-          <Image src={p.image} alt={`${p.title} preview`} fill sizes="(max-width: 768px) 90vw, 760px" className="object-cover object-top" />
+          <Image src={p.image} loading="eager" fetchPriority="low" alt={`${p.title} preview`} fill sizes="(max-width: 768px) 90vw, 760px" className="object-cover object-top" />
         ) : (
           <FloorPlanArt />
         )}

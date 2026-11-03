@@ -26,7 +26,7 @@ function EvidencePage({ project, index }: { project: Project; index: number }) {
       <figure className="relative mt-4 rotate-[-2deg] bg-white p-2 pb-8 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.5)]">
         <span className="absolute -top-3 left-8 z-10 h-8 w-3 rounded-full border-2 border-[#8d8d8d] bg-transparent" />
         <div className="relative aspect-[4/3] overflow-hidden bg-[#ddd]">
-          <Image src={project.image} alt={`${project.title} screenshot`} fill sizes="(max-width: 1024px) 90vw, 420px" className="object-cover" />
+          <Image src={project.image} loading="eager" fetchPriority="low" alt={`${project.title} screenshot`} fill sizes="(max-width: 1024px) 90vw, 420px" className="object-cover" />
         </div>
         <figcaption className="absolute bottom-1.5 left-3 font-hand text-lg text-[#2a2416]">{project.title}, the build</figcaption>
       </figure>
@@ -48,7 +48,7 @@ function NotesPage({ project, index, withPhoto }: { project: Project; index: num
       <h3 className="mt-2 font-display text-3xl font-bold text-[#1a1406] lg:text-4xl">{project.title}</h3>
       {withPhoto && (
         <div className="relative mt-3 aspect-video overflow-hidden rounded-sm bg-[#ddd]">
-          <Image src={project.image} alt={`${project.title} screenshot`} fill sizes="90vw" className="object-cover" />
+          <Image src={project.image} loading="eager" fetchPriority="low" alt={`${project.title} screenshot`} fill sizes="(max-width: 1024px) 90vw, 1px" className="object-cover" />
         </div>
       )}
       <p className="mt-3 font-mono text-[13px] leading-relaxed text-[#2a2416] sm:text-sm lg:text-[15px] lg:leading-7">{project.description}</p>
