@@ -12,6 +12,8 @@
   --muted-foreground: #9ca3af;
   --border: rgba(212, 175, 55, 0.2);
   --glass-bg: rgba(15, 15, 26, 0.6);
+  /* opaque-enough stand-in for frosted glass on cards: no per-frame backdrop blur */
+  --card-solid: rgba(20, 20, 34, 0.88);
   --radius: 0.75rem;
 }
 
@@ -76,6 +78,9 @@
 
 .scrollbar-hide { scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* off-screen sections stop their decorative loops (see components/fx/offscreen-pauser.tsx) */
+[data-offscreen], [data-offscreen] * { animation-play-state: paused !important; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

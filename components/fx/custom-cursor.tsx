@@ -67,6 +67,7 @@ export function CustomCursor() {
     const rings: Ring[] = []
     let target: Element | null = null
     let raf = 0
+    let cleared = false
 
     const resize = () => {
       canvas.width = innerWidth * dpr
@@ -106,9 +107,13 @@ export function CustomCursor() {
 
     const frame = () => {
       raf = requestAnimationFrame(frame)
-      ctx.clearRect(0, 0, innerWidth, innerHeight)
       const now = performance.now()
       while (trail.length && now - trail[0].t > 380) trail.shift()
+      // nothing to draw: skip the full-screen clear/paint entirely (clear once when the last stroke fades)
+      const idle = trail.length === 0 && sparks.length === 0 && rings.length === 0
+      if (idle && cleared) return
+      ctx.clearRect(0, 0, innerWidth, innerHeight)
+      cleared = idle
       if (!reduced) {
         // comet: fading gold segments, plus faint "synapses" between points a few steps apart
         for (let i = 1; i < trail.length; i++) {

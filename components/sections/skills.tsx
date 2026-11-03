@@ -32,7 +32,7 @@ export function Skills() {
               className="relative aspect-square w-full"
             >
               <div
-                className="flex flex-col items-center justify-center py-2 px-0.5 sm:py-2.5 sm:px-1 rounded-lg bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] transition-all duration-500 h-full md:grayscale md:opacity-60 md:group-hover/skills:grayscale md:group-hover/skills:opacity-30 md:hover:!grayscale-0 md:hover:!opacity-100 md:hover:scale-115 md:hover:bg-primary/10 md:hover:border-primary/50 md:hover:shadow-xl md:hover:shadow-primary/20 hover:scale-105 hover:shadow-lg"
+                className="flex flex-col items-center justify-center py-2 px-0.5 sm:py-2.5 sm:px-1 rounded-lg bg-[var(--card-solid)] border border-[var(--glass-border)] transition-all duration-500 h-full md:grayscale md:opacity-60 md:group-hover/skills:grayscale md:group-hover/skills:opacity-30 md:hover:!grayscale-0 md:hover:!opacity-100 md:hover:scale-115 md:hover:bg-primary/10 md:hover:border-primary/50 md:hover:shadow-xl md:hover:shadow-primary/20 hover:scale-105 hover:shadow-lg"
               >
                 <div className="relative w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center mb-1 flex-shrink-0">
                   {typeof skill.icon === "string" ? (

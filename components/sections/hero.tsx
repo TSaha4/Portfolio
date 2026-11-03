@@ -51,7 +51,7 @@ export function Hero() {
           alt="Tanmoy Saha"
           fill
           priority
-          quality={100}
+          quality={90}
           sizes="(max-width: 640px) 80vw, (max-width: 1024px) 46vw, 34vw"
           className="object-contain object-bottom"
         />

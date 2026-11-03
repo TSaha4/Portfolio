@@ -72,8 +72,16 @@ export function NeuralBackground() {
     }
     window.addEventListener("resize", handleResize)
 
-    const animate = () => {
+    // the points drift slowly, so 30fps is visually identical and halves the repaint cost
+    let lastDraw = 0
+    const FRAME_MS = 1000 / 30
+    const animate = (now = 0) => {
       if (!ctx || !canvas) return
+      if (!prefersReducedMotion && now - lastDraw < FRAME_MS) {
+        animationRef.current = requestAnimationFrame(animate)
+        return
+      }
+      lastDraw = now
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 

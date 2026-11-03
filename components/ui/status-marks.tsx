@@ -39,11 +39,11 @@ export function InProgress({ label = "in progress", compact }: { label?: string;
       </span>
       <div className="flex-1">
         <div className="relative h-1.5 overflow-hidden rounded-full bg-primary/15">
-          <span className="loading-bar absolute inset-y-0 w-1/3 rounded-full bg-gradient-to-r from-transparent via-primary to-transparent" />
+          <span className="loading-bar absolute inset-y-0 left-0 w-1/3 rounded-full bg-gradient-to-r from-transparent via-primary to-transparent" />
         </div>
         <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-primary/80">{label}…</p>
       </div>
-      <style>{`.loading-bar { animation: loading-bar 1.6s ease-in-out infinite; } @keyframes loading-bar { from { left: -35%; } to { left: 100%; } }`}</style>
+      <style>{`.loading-bar { animation: loading-bar 1.6s ease-in-out infinite; } @keyframes loading-bar { from { transform: translateX(-105%); } to { transform: translateX(300%); } }`}</style>
     </div>
   )
 }

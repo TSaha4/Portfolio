@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { Intro } from "@/components/layout/intro"
 import { Footer } from "@/components/layout/footer"
 import { Marquee } from "@/components/ui/marquee"
+import { OffscreenPauser } from "@/components/fx/offscreen-pauser"
 
 // below-the-fold layers are split into their own chunks
 const About = dynamic(() => import("@/components/sections/about").then((m) => m.About))
@@ -23,6 +24,7 @@ export default function Page() {
         Skip to content
       </a>
       <Intro />
+      <OffscreenPauser />
       <NeuralBackground />
       <CustomCursor />
       <Navbar />
