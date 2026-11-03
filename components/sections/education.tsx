@@ -23,7 +23,7 @@ export function EducationSection() {
 
           <div className="w-full">
             {/* Mobile Vertical Timeline */}
-            <div className="relative md:hidden mt-6 space-y-6 pb-8">
+            <div className="relative mx-auto mt-6 max-w-2xl space-y-6 overflow-x-clip px-3 pb-8 pt-3 -mx-3 sm:mx-auto lg:hidden">
               {/* Timeline line with arrow */}
               <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-gradient-to-t from-primary/20 via-primary/50 to-primary">
                 <div className="absolute -top-1 -left-[5px] w-3 h-3 border-t-2 border-l-2 border-primary transform rotate-45" />
@@ -90,7 +90,7 @@ export function EducationSection() {
             </div>
 
             {/* Desktop Horizontal Wavy Timeline */}
-            <div className="hidden md:block relative w-full h-[600px] mt-10">
+            <div className="hidden lg:block relative w-full h-[clamp(38rem,48vw,42rem)] mt-10">
               <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1000 400">
                 {/* Wavy line connecting the dots */}
                 <motion.path
@@ -136,7 +136,7 @@ export function EducationSection() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: index * 0.3 + 0.2 }}
-                      className={`absolute w-[300px] lg:w-[350px] bg-[var(--card-solid)] border ${isVIT ? 'border-primary shadow-primary/20' : 'border-[var(--glass-border)]'} rounded-xl p-6 shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:z-30 ${isTop ? 'bottom-full mb-8' : 'top-full mt-8'} ${index === 0 ? 'left-[-20px] lg:left-[-40px]' : index === 2 ? 'right-[-20px] lg:right-[-40px]' : 'left-1/2 -translate-x-1/2'} ${isVIT ? 'scale-105 hover:scale-110 origin-top-right' : ''}`}
+                      className={`absolute w-[clamp(15rem,30vw,22rem)] bg-[var(--card-solid)] border ${isVIT ? 'border-primary shadow-primary/20' : 'border-[var(--glass-border)]'} rounded-xl p-6 shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:z-30 ${isTop ? 'bottom-full mb-8' : 'top-full mt-8'} ${index === 0 ? 'left-0' : index === 2 ? 'right-0' : 'left-1/2 -translate-x-1/2'} ${isVIT ? 'z-30 scale-105 hover:scale-110 origin-top-right' : ''}`}
                     >
                       {isVIT && (
                         <div className="absolute -top-4 -right-3 bg-primary text-primary-foreground text-[11px] font-bold px-4 py-1.5 rounded-full shadow-lg z-10">

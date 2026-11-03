@@ -83,7 +83,7 @@ export function AvatarFlip() {
   }
 
   return (
-    <div className="relative mx-auto w-[240px] sm:w-[280px]">
+    <div className="relative mx-auto w-[min(70vw,17.5rem)]">
       <button
         type="button"
         aria-pressed={flipped}

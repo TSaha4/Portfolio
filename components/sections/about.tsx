@@ -104,7 +104,7 @@ export function About() {
   return (
     <section id="about" className="relative px-6 py-16 sm:px-12 lg:px-24 md:py-24">
       <div className="mx-auto max-w-6xl">
-        <LayerHeader id="about" title="About me, tokenised." caption="Hover the underlined tokens to see what each one attends to." note="hello there!" />
+        <LayerHeader id="about" title="About me, tokenised." caption="Tap or hover an underlined word to see what it attends to." note="hello there!" />
         <div className="grid items-start gap-14 md:grid-cols-[1fr_300px]">
           <div>
             <Reveal><AttentionText /></Reveal>

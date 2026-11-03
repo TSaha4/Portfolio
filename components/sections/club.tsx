@@ -189,7 +189,7 @@ export function Club() {
   }, [paused])
 
   return (
-    <section id="club" className="relative overflow-x-clip px-6 py-16 sm:px-12 md:py-24 lg:px-24">
+    <section id="club" className="relative overflow-x-hidden px-6 py-16 sm:px-12 md:py-24 lg:px-24">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <LayerHeader id="club" title="Club endeavors." caption="Products built by the team at VinnovateIT, VIT's tech club." note="built with my club" />
@@ -219,7 +219,7 @@ export function Club() {
           >
             {/* the stage: drag or swipe to rotate the ring */}
             <motion.div
-              className="relative mx-auto h-[500px] w-full touch-pan-y [perspective:1600px] sm:h-[460px] md:h-[390px]"
+              className="relative mx-auto h-[clamp(27rem,125vw,32rem)] w-full touch-pan-y [perspective:1600px] md:h-[clamp(22rem,30vw,28rem)]"
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.15}
